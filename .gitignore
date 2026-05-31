@@ -1,25 +1,29 @@
-# 비밀값 - 절대 커밋 금지
-.env
-.env.local
-.env.*.local
-
-# Claude Code 개인 설정 (API 키, 개인 오버라이드)
+# OMC / Claude local tooling & state
+.omc/
 .claude/settings.local.json
 
-# 의존성
-node_modules/
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# Python (backend)
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
 
-# 빌드 결과물
+# Node / frontend (PWA)
+node_modules/
 dist/
-build/
-.next/
+.vite/
+*.local
 
-# 로그
-*.log
-npm-debug.log*
-
-# OS
+# OS / editor
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/

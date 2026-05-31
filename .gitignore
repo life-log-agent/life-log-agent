@@ -1,0 +1,25 @@
+# 비밀값 - 절대 커밋 금지
+.env
+.env.local
+.env.*.local
+
+# Claude Code 개인 설정 (API 키, 개인 오버라이드)
+.claude/settings.local.json
+
+# 의존성
+node_modules/
+__pycache__/
+*.pyc
+
+# 빌드 결과물
+dist/
+build/
+.next/
+
+# 로그
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

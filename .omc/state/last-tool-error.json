@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:/Users/Administrator/Downloads/life_log\\\" && echo \\\"---FILES---\\\" && ls -la 2>&1 && echo \\\"---GIT VERSION---\\\" && git --version 2>&1 && echo \\\"---GH AUTH---\\\" && gh auth status 2>&1...",
+  "error": "Exit code 127\n---FILES---\ntotal 14\ndrwxr-xr-x 1 Administrator 197121   0 May 31 16:25 .\ndrwxr-xr-x 1 Administrator 197121   0 May 31 16:13 ..\ndrwxr-xr-x 1 Administrator 197121   0 May 31 18:38 .claude\n-rw-r--r-- 1 Administrator 197121 454 May 31 16:25 .env.example\n-rw-r--r-- 1 Administrator 197121 298 May 31 16:25 .gitignore\ndrwxr-xr-x 1 Administrator 197121   0 May 31 17:20 .omc\n---GIT VERSION---\ngit version 2.45.2.windows.1\n---GH AUTH---\n/usr/bin/bash: line 1: gh: command not found",
+  "timestamp": "2026-05-31T09:38:58.049Z",
+  "retry_count": 3
+}

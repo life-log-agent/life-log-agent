@@ -2,10 +2,9 @@
 .omc/
 .claude/settings.local.json
 
-# Secrets / env
+# Secrets / env (env 파일은 추적하지 않음 — 각자 로컬 .env 사용)
 .env
 .env.*
-!.env.example
 
 # Python (backend)
 __pycache__/

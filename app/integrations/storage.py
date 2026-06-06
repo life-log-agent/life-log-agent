@@ -34,3 +34,11 @@ async def create_signed_url(storage_path: str, expires_in: int = 3600) -> str:
         resp.raise_for_status()
     data = resp.json()
     return f"{settings.supabase_url}/storage/v1{data['signedURL']}"
+
+
+async def delete_image(storage_path: str) -> None:
+    """Supabase Storage에서 파일을 삭제한다."""
+    url = f"{_BASE}/object/{_BUCKET}/{storage_path.lstrip('/')}"
+    async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
+        resp = await client.delete(url, headers=_HEADERS)
+        resp.raise_for_status()

@@ -3,13 +3,13 @@ import uuid
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import current_user_id
 from app.db import get_session
 from app.models.item import Item, ItemRead
-from app.integrations.storage import create_signed_url
+from app.integrations.storage import create_signed_url, delete_image
 
 router = APIRouter(prefix="/items", tags=["items"])
 
@@ -52,7 +52,7 @@ async def signed_url(
     if not item or item.user_id != user_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     url = await create_signed_url(item.storage_path)
-    return {"url": url}
+    return {"signed_url": url}
 
 
 @router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -64,5 +64,13 @@ async def delete_item(
     item = await session.get(Item, item_id)
     if not item or item.user_id != user_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    await session.delete(item)
+    storage_path = item.storage_path
+    # ORM cascade가 NOT NULL 제약과 충돌하므로 SQL로 직접 삭제
+    await session.execute(text("DELETE FROM chunks WHERE item_id = :id"), {"id": item_id})
+    await session.execute(text("DELETE FROM items WHERE id = :id"), {"id": item_id})
     await session.commit()
+    # Storage 파일 삭제 — DB 커밋 후 시도, 실패해도 응답은 204
+    try:
+        await delete_image(storage_path)
+    except Exception:
+        pass

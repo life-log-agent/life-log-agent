@@ -2,6 +2,9 @@
 .omc/
 .claude/settings.local.json
 
+# Design handoff scratch copy (source bundle from Claude Design; local reference only)
+.design-src/
+
 # Secrets / env (env 파일은 추적하지 않음 — 각자 로컬 .env 사용)
 .env
 .env.*
@@ -26,3 +29,7 @@ dist/
 Thumbs.db
 .idea/
 .vscode/
+
+# Local zip archives / extracted bundles
+*.zip
+*_extracted/

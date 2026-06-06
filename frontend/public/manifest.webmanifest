@@ -1,0 +1,18 @@
+{
+  "name": "life_log",
+  "short_name": "life_log",
+  "description": "갤러리에 흩어진 이미지 기록을 모아 AI로 자동 분류·검색하는 라이프로그",
+  "lang": "ko",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5EFE6",
+  "theme_color": "#7B4A2B",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

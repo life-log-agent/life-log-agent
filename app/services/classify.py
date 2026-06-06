@@ -16,9 +16,9 @@ async def classify(description: str) -> dict[str, Any]:
     """
     result = await llm.classify_image(description)
     # 필드 보정
-    category = result.get("category", "etc")
-    if category not in ("cosmetic", "travel", "food", "etc"):
-        category = "etc"
+    category = result.get("category", "기타")
+    if category not in ("화장품", "여행지", "맛집", "기타"):
+        category = "기타"
     tags: list[str] = result.get("tags") or []
     place: str | None = result.get("place")
     summary: str = result.get("summary") or description[:80]

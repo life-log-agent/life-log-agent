@@ -99,7 +99,7 @@ async def classify_image(description: str) -> dict[str, Any]:
                     "type": "text",
                     "text": (
                         "너는 이미지 내용을 분석해 JSON 형태로 분류하는 AI야. "
-                        "category는 반드시 cosmetic·travel·food·etc 중 하나, "
+                        "category는 반드시 화장품·여행지·맛집·기타 중 하나, "
                         "tags는 최대 5개 한국어 키워드 배열, "
                         "place는 장소명(없으면 null), "
                         "summary는 한 줄 요약이야. "
@@ -120,7 +120,7 @@ async def classify_image(description: str) -> dict[str, Any]:
     try:
         return json.loads(raw.strip().strip("```json").strip("```").strip())
     except (json.JSONDecodeError, ValueError):
-        return {"category": "etc", "tags": [], "place": None, "summary": description[:80]}
+        return {"category": "기타", "tags": [], "place": None, "summary": description[:80]}
 
 
 async def synthesize_answer(query: str, contexts: list[str]) -> dict[str, Any]:

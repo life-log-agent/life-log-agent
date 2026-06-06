@@ -173,13 +173,13 @@ export default function Search() {
             </div>
             <div className="stack-sm" style={{ flex: "0 0 auto" }}>
               {evidenceList.map((ev) => (
-                <button key={ev.item_id} className="row" style={{ padding: 10, gap: 12, cursor: "pointer", width: "100%", textAlign: "left" }} onClick={() => navigate(`/detail/${ev.item_id}`)}>
+                <button key={ev.id} className="row" style={{ padding: 10, gap: 12, cursor: "pointer", width: "100%", textAlign: "left" }} onClick={() => navigate(`/detail/${ev.id}`)}>
                   <div style={{ width: 54, height: 54, borderRadius: 10, background: "var(--primary-bg)", display: "grid", placeItems: "center", fontSize: 26, flex: "0 0 auto" }}>
                     {categoryEmoji(ev.category)}
                   </div>
                   <div className="row-main">
                     <div style={{ fontSize: 13.5, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {ev.summary ?? ev.item_id}
+                      {ev.summary ?? ev.id}
                     </div>
                     <div className="muted tiny" style={{ marginTop: 3, fontWeight: 600 }}>
                       {ev.place ? `${ev.place} · ` : ""}{formatDate(ev.captured_at)}

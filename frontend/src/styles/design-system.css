@@ -111,7 +111,9 @@
 /* ── Body ── */
 .body {
   flex: 1 1 auto;
-  overflow: hidden;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 0 18px;
   display: flex;
   flex-direction: column;

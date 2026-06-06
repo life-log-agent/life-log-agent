@@ -28,7 +28,7 @@ export interface SignedUrlResponse {
 }
 
 export interface SearchEvidence {
-  item_id: string;
+  id: string;
   summary: string | null;
   category: string | null;
   place: string | null;

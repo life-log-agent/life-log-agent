@@ -1,0 +1,364 @@
+/* ============================================================
+   life_log — design system
+   Visual language adapted from a Duolingo-style UI kit:
+   chunky 3D buttons, rounded white cards w/ hairline borders,
+   bright friendly palette, bold rounded type, mobile-first.
+   ============================================================ */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400..900;1,700&display=swap");
+
+:root {
+  /* brand palette */
+  --green:    #58CC02;
+  --green-d:  #58A700;
+  --green-bg: #D7FFB8;
+  --blue:     #1CB0F6;
+  --blue-d:   #1899D6;
+  --blue-bg:  #DDF4FF;
+  --yellow:   #FFC800;
+  --yellow-d: #E5A100;
+  --yellow-bg:#FFF4D6;
+  --purple:   #CE82FF;
+  --purple-d: #A568CC;
+  --purple-bg:#F4E6FF;
+  --pink:     #FF86D0;
+  --red:      #FF4B4B;
+  --red-d:    #E53535;
+  --red-bg:   #FFDFE0;
+
+  /* neutrals */
+  --ink:    #3C3C3C;
+  --ink-2:  #4B4B4B;
+  --gray:   #777777;
+  --gray-2: #AFAFAF;
+  --line:   #E5E5E5;
+  --line-2: #EFEFEF;
+  --snow:   #F7F7F7;
+  --white:  #FFFFFF;
+
+  --r-lg: 20px;
+  --r-md: 16px;
+  --r-sm: 12px;
+
+  --font: "Pretendard", "Nunito", -apple-system, system-ui, sans-serif;
+  --font-display: "Nunito", "Pretendard", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* ---------- phone shell ---------- */
+.screen {
+  width: 390px;
+  height: 844px;
+  background: var(--white);
+  font-family: var(--font);
+  color: var(--ink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;       /* break Korean on spaces, not mid-syllable */
+  overflow-wrap: break-word;
+}
+.screen * { box-sizing: border-box; }
+
+/* iOS status bar */
+.statusbar {
+  height: 50px;
+  flex: 0 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px 0 30px;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .2px;
+}
+.statusbar.on-color { color: #fff; }
+.statusbar .sb-icons { display: flex; align-items: center; gap: 7px; }
+
+/* home indicator */
+.home-ind {
+  position: absolute;
+  bottom: 8px; left: 50%; transform: translateX(-50%);
+  width: 134px; height: 5px; border-radius: 3px;
+  background: rgba(0,0,0,.85); z-index: 60;
+}
+.home-ind.light { background: rgba(255,255,255,.9); }
+
+/* generic header */
+.appbar {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 4px 18px 14px;
+}
+.appbar .back {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 22px; color: var(--gray); cursor: pointer;
+  flex: 0 0 auto;
+}
+.appbar h1 { font-size: 19px; font-weight: 800; margin: 0; letter-spacing: -.2px; }
+
+.body {
+  flex: 1 1 auto;
+  overflow: hidden;
+  padding: 0 18px;
+  display: flex; flex-direction: column;
+}
+.body.scroll { overflow: hidden; }
+
+/* ---------- typography ---------- */
+.h-xl { font-size: 28px; font-weight: 900; letter-spacing: -.5px; line-height: 1.15; }
+.h-lg { font-size: 23px; font-weight: 800; letter-spacing: -.3px; line-height: 1.2; }
+.h-md { font-size: 18px; font-weight: 800; letter-spacing: -.2px; }
+.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray-2); white-space: nowrap; }
+.muted { color: var(--gray); }
+.tiny { font-size: 12px; }
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 900; letter-spacing: -1px;
+}
+
+/* ---------- chunky 3D button ---------- */
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  font-family: var(--font);
+  font-weight: 800; font-size: 16px;
+  letter-spacing: .3px;
+  border-radius: var(--r-md);
+  padding: 15px 20px;
+  color: #fff;
+  background: var(--green);
+  box-shadow: 0 4px 0 var(--green-d);
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%;
+  transition: transform .04s, box-shadow .04s;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--green-d); }
+.btn .ico { font-size: 19px; }
+.btn--blue   { background: var(--blue);   box-shadow: 0 4px 0 var(--blue-d); }
+.btn--red    { background: var(--red);    box-shadow: 0 4px 0 var(--red-d); }
+.btn--yellow { background: var(--yellow); box-shadow: 0 4px 0 var(--yellow-d); color: var(--ink); }
+.btn--ghost {
+  background: #fff; color: var(--blue);
+  box-shadow: 0 2px 0 var(--line); border: 2px solid var(--line);
+  padding: 13px 20px;
+}
+.btn--locked {
+  background: var(--line); color: var(--gray-2);
+  box-shadow: 0 4px 0 #D4D4D4; cursor: not-allowed; text-transform: uppercase;
+}
+.btn--sm { font-size: 13px; padding: 10px 14px; box-shadow-offset: 3px; }
+
+/* ---------- cards ---------- */
+.card {
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: 0 2px 0 var(--line);
+}
+.card-pad { padding: 16px; }
+
+/* list row */
+.row {
+  display: flex; align-items: center; gap: 14px;
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: 0 2px 0 var(--line);
+  padding: 13px 14px;
+}
+.row .row-ico {
+  flex: 0 0 auto;
+  width: 46px; height: 46px; border-radius: 12px;
+  display: grid; place-items: center; font-size: 24px;
+}
+.row .row-main { flex: 1 1 auto; min-width: 0; }
+.row .chev { color: var(--gray-2); font-size: 20px; flex: 0 0 auto; }
+
+/* ---------- pills / chips ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 800;
+  padding: 5px 11px; border-radius: 999px;
+  border: 2px solid transparent; white-space: nowrap;
+}
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; }
+.pill--gray   { background: var(--snow);   color: var(--gray);    border-color: var(--line); }
+.pill--blue   { background: var(--blue-bg); color: var(--blue-d);  border-color: #B6E3FA; }
+.pill--green  { background: var(--green-bg);color: var(--green-d); border-color: #BCEE9A; }
+.pill--red    { background: var(--red-bg);  color: var(--red-d);   border-color: #FFC2C4; }
+.pill--yellow { background: var(--yellow-bg);color: var(--yellow-d);border-color: #FCE39A; }
+.pill--purple { background: var(--purple-bg);color: var(--purple-d);border-color: #E6CBFA; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 700; color: var(--ink-2);
+  padding: 8px 13px; border-radius: 999px;
+  background: #fff; border: 2px solid var(--line); box-shadow: 0 2px 0 var(--line);
+  white-space: nowrap;
+}
+.chip.active { background: var(--blue-bg); border-color: var(--blue); color: var(--blue-d); box-shadow: 0 2px 0 #B6E3FA; }
+
+/* demo badge — every synthetic sample carries this */
+.demo-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 800; letter-spacing: .3px;
+  color: var(--ink); background: var(--yellow);
+  padding: 2px 7px; border-radius: 6px; text-transform: none;
+  white-space: nowrap;
+}
+
+/* progress bar */
+.track { height: 16px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.track .fill { height: 100%; border-radius: 999px; background: var(--green); position: relative; }
+.track .fill::after {
+  content: ""; position: absolute; top: 3px; left: 8%; right: 8%; height: 4px;
+  border-radius: 999px; background: rgba(255,255,255,.4);
+}
+.track.thin { height: 10px; }
+
+/* synthetic thumbnail tile (clearly fake imagery) */
+.thumb {
+  position: relative; border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: var(--snow);
+}
+.thumb .glyph {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 34px; opacity: .92;
+}
+.thumb .fname {
+  position: relative; z-index: 2;
+  font-size: 9px; font-weight: 700; color: rgba(0,0,0,.55);
+  background: rgba(255,255,255,.78); backdrop-filter: blur(2px);
+  padding: 3px 6px; border-radius: 0 8px 0 8px; align-self: flex-start;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* bottom-fixed action zone (thumb reach) */
+.dock {
+  flex: 0 0 auto;
+  padding: 14px 18px 30px;
+  background: #fff;
+  border-top: 1px solid var(--line-2);
+}
+.dock.no-border { border-top: 0; }
+
+/* bottom tab bar */
+.tabbar {
+  flex: 0 0 auto;
+  display: flex; align-items: stretch;
+  border-top: 2px solid var(--line);
+  background: #fff;
+  padding: 8px 6px 26px;
+}
+.tabbar .tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 800; color: var(--gray-2);
+  padding: 4px 0;
+}
+.tabbar .tab .ti { font-size: 22px; }
+.tabbar .tab.active { color: var(--green-d); }
+
+/* search field */
+.field {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--snow);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 13px 15px;
+  font-size: 15px; font-weight: 600;
+}
+.field.focus { border-color: var(--blue); background: #fff; box-shadow: 0 2px 0 #B6E3FA; }
+.field input { border: 0; outline: 0; background: transparent; font: inherit; flex: 1; color: var(--ink); }
+.field > span:not(.si) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.field .si { font-size: 18px; color: var(--gray-2); }
+
+/* step list (processing) */
+.step { display: flex; align-items: center; gap: 13px; padding: 6px 0; }
+.step .knob {
+  width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto;
+  display: grid; place-items: center; font-size: 15px; font-weight: 900;
+  border: 3px solid var(--line); color: var(--gray-2); background: #fff;
+}
+.step .knob.done { background: var(--green); border-color: var(--green); color: #fff; }
+.step .knob.active { border-color: var(--blue); color: var(--blue-d); background: var(--blue-bg); }
+.step .knob.fail { background: var(--red); border-color: var(--red); color: #fff; }
+.step .sline { display: flex; flex-direction: column; }
+.step .sline b { font-size: 14px; font-weight: 800; }
+.step .sline span { font-size: 12px; color: var(--gray); }
+.step .conn { width: 3px; height: 14px; margin-left: 13.5px; background: var(--line); border-radius: 2px; }
+.step .conn.done { background: var(--green); }
+
+/* divider */
+.hr { height: 2px; background: var(--line-2); border: 0; border-radius: 2px; }
+
+/* RAG answer card accent bar */
+.answer {
+  background: var(--green-bg);
+  border: 2px solid #BCEE9A;
+  border-radius: var(--r-md);
+  padding: 15px 16px;
+  box-shadow: 0 2px 0 #BCEE9A;
+}
+
+.scrollarea { overflow: hidden; }
+
+/* small helpers */
+.stack > * + * { margin-top: 12px; }
+.stack-sm > * + * { margin-top: 8px; }
+.rowflex { display: flex; align-items: center; }
+.gap8 { gap: 8px; } .gap10 { gap: 10px; } .gap12 { gap: 12px; }
+.spread { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+.grow { flex: 1; }
+
+/* --- app responsive overrides (added during port) --- */
+/* The prototype .screen is a fixed 390x844 mockup box. For the real PWA we
+   keep that "phone-in-browser" frame on desktop, but let it fill the device
+   on small viewports. These rules override only the .screen sizing — the copied
+   design tokens and component classes above are untouched. */
+html, body {
+  margin: 0;
+  background: #FAF7F2;
+}
+body {
+  font-family: var(--font);
+}
+
+/* desktop / tablet: centered phone frame with surrounding canvas */
+@media (min-width: 430px) {
+  .app-stage {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #FAF7F2;
+  }
+  .app-stage .screen {
+    border-radius: 28px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+}
+
+/* real phone: the screen fills the viewport */
+@media (max-width: 429px) {
+  .app-stage {
+    background: var(--white);
+  }
+  .app-stage .screen {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

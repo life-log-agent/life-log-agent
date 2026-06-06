@@ -9,7 +9,7 @@
 
 ## 1. 프로젝트 한 줄 설명
 
-`life_log`는 사진·음성메모·스크린샷·PDF처럼 흩어진 기록을 한 곳에 모아 **AI가 자동으로 내용을 추출·분류하고 자연어로 검색·질의(RAG)** 하게 해 주는 **반응형 PWA + FastAPI 라이프로그 서비스**다.
+`life_log`는 사진·스크린샷·캡처처럼 갤러리에 흩어진 **이미지 기록**을 한 곳에 모아 **AI가 자동으로 내용을 추출·분류하고 자연어로 검색·질의(RAG)** 하게 해 주는 **반응형 PWA + FastAPI 라이프로그 서비스**다.
 
 ---
 
@@ -19,7 +19,7 @@
 
 **핵심 기능**
 
-1. **멀티모달 업로드 & 자동 처리** — 이미지/캡처(비전 OCR·설명), 음성메모(STT 전사), PDF(텍스트 추출) 를 받아 공통 텍스트 표현으로 정규화.
+1. **이미지 업로드 & 자동 처리** — 사진·스크린샷·캡처를 받아 HCX-005 비전으로 OCR·설명 → 공통 텍스트 표현으로 정규화.
 2. **자동 분류 + 임베딩 인덱싱** — 카테고리·태그·엔티티(장소/인물/음식)·시점(`captured_at`) 추출 후 청크 임베딩을 pgvector에 저장.
 3. **자연어 검색 / RAG 질의응답** — 시간·장소·카테고리 필터 + 벡터 유사도 검색으로 후보를 찾고, LLM으로 재랭크/답변 합성.
 
@@ -40,7 +40,7 @@
 | 테스트 | pytest + httpx `AsyncClient`(백) / Vitest·RTL(프론트) | |
 | 린트/타입 | ruff + mypy(백) / ESLint + tsc(프론트) | |
 
-AI/STT/임베딩 제공자는 **4번 항목** 참조. 스택 변경(특히 LLM/임베딩/STT 제공자나 Supabase 사용 범위)은 **코드 작성 전에 이 표를 먼저 갱신**한다.
+AI/임베딩 제공자는 **4번 항목** 참조. 스택 변경(특히 LLM/임베딩 제공자나 Supabase 사용 범위)은 **코드 작성 전에 이 표를 먼저 갱신**한다.
 
 **실행 명령** (스캐폴딩 이후 적용. `uv` 없으면 `uv run X`→`python -m X`, `uv sync`→`pip install -e ".[dev]"`)
 
@@ -77,14 +77,13 @@ supabase db push  # 마이그레이션 동기화
 
 | 서비스 | 역할 | 래퍼 |
 |--------|------|------|
-| **Clova Studio HCX-005** (비전 멀티모달) | 이미지/캡처 OCR·설명, 자동 분류, RAG 답변 합성. 스캔 PDF 폴백 OCR | `integrations/llm.py` |
+| **Clova Studio HCX-005** (비전 멀티모달) | 이미지/스크린샷/캡처 OCR·설명, 자동 분류, RAG 답변 합성 | `integrations/llm.py` |
 | **Clova Studio Embedding** | 한국어 우선 텍스트 임베딩 (LLM과 동일 제공자로 정렬) | `integrations/embeddings.py` |
-| **CLOVA Speech** (대안: faster-whisper) | 음성메모 → 텍스트 전사(STT) | `integrations/stt.py` |
-| **Supabase Storage** | 사진/음성/PDF 원본 저장 (클라이언트 직행 업로드) | `integrations/storage.py` |
+| **Supabase Storage** | 이미지(사진·스크린샷·캡처) 원본 저장 (클라이언트 직행 업로드) | `integrations/storage.py` |
 | **Supabase Auth** | PWA 로그인. FastAPI는 Supabase JWT 검증 | `app/auth.py` |
 | **Supabase Postgres + pgvector** | 메타데이터 + 벡터 인덱스 | `app/db.py` |
 
-- HCX-005는 비전 멀티모달이므로 이미지/스크린샷 OCR·설명을 **별도 OCR 엔진 없이** 이 모델로 처리하는 것이 기본 경로다. PDF는 `pypdf` 텍스트 추출 우선, 실패 시 비전/OCR 폴백.
+- 입력은 **이미지/스크린샷/캡처 단일 모달리티**다. HCX-005가 비전 멀티모달이므로 OCR·설명을 **별도 OCR 엔진 없이** 이 모델로 처리한다. (음성 STT·PDF는 현재 범위 밖 — 필요 시 단계 2에 처리기 추가로 흡수)
 - 인증 키·엔드포인트·요청 포맷(멀티모달 메시지 이미지 첨부 방식)은 각 래퍼 한 곳에 캡슐화한다. 키는 `config.py`의 settings로만 읽고 코드에 하드코딩하지 않는다(8번 참조).
 
 ---
@@ -171,7 +170,7 @@ supabase db push  # 마이그레이션 동기화
 
 - **API 키·토큰을 코드/문서에 하드코딩하지 않는다.** Clova API 키·Supabase 키는 `config.py` settings(환경변수)로만 읽는다. `.env`는 커밋하지 않고 `.env.example`만 제공한다. Supabase **service role 키는 백엔드 전용**, React에는 **anon 키만** 노출한다.
 - **SSH 개인키를 저장소에 넣지 않는다.** 키·접속정보는 로컬/시크릿 매니저에만 둔다.
-- **실제 개인정보(PII)를 하드코딩하거나 로그에 출력하지 않는다.** 사진·음성·문서 원본 내용, 전사 텍스트, 사용자 식별자를 로그·코드·테스트 픽스처에 넣지 않는다. 예시는 합성 데이터를 쓴다.
+- **실제 개인정보(PII)를 하드코딩하거나 로그에 출력하지 않는다.** 이미지 원본 내용, OCR로 추출한 텍스트, 사용자 식별자를 로그·코드·테스트 픽스처에 넣지 않는다. 예시는 합성 데이터를 쓴다.
 - **실제 금융 데이터를 하드코딩하지 않는다.** 카드·계좌·결제 정보 등은 코드/테스트에 넣지 않는다.
 - **테스트에서 실제 외부 API를 호출하지 않는다.** `integrations/` 경계에서 모킹한다.
 
@@ -186,8 +185,8 @@ supabase db push  # 마이그레이션 동기화
    - PWA가 갤러리 다중 선택 원본을 Supabase Storage에 직접 저장 → 경로+메타를 /ingest로 전달
    - (안드로이드) Web Share Target도 동일 경로로 수렴
    - Item 생성(status=pending), 즉시 202 응답, 처리는 백그라운드 위임
-2. 처리 (services/pipeline) — 모달리티별 분기
-   - 이미지/캡처 → HCX-005 비전(설명+OCR) / 음성 → STT 전사 / PDF → pypdf(실패 시 비전 폴백)
+2. 처리 (services/pipeline)
+   - 이미지/스크린샷/캡처 → HCX-005 비전(설명 + OCR 텍스트)
    ↓ 공통 텍스트 표현으로 정규화
 3. 이해/분류 (services/classify) — HCX-005가 카테고리·태그·엔티티·captured_at 추출
 4. 인덱싱 (services/index) — 청크 임베딩 → pgvector, status=ready
@@ -196,8 +195,8 @@ supabase db push  # 마이그레이션 동기화
 
 **불변 규칙**
 
-- 업로드 엔드포인트는 무거운 작업(LLM/STT/임베딩)을 **동기 수행하지 않고** 항상 백그라운드 파이프라인에 위임한다.
-- 모든 모달리티는 단계 2에서 **공통 텍스트 표현**으로 수렴한다. 새 모달리티 = 단계 2에 처리기 하나 추가(이후 단계는 모달리티를 모른다).
+- 업로드 엔드포인트는 무거운 작업(LLM/임베딩)을 **동기 수행하지 않고** 항상 백그라운드 파이프라인에 위임한다.
+- 처리 결과는 단계 2에서 **공통 텍스트 표현**으로 수렴한다. 새 모달리티를 추가하더라도 단계 2에 처리기 하나만 추가하면 되고, 이후 단계(분류/인덱싱/검색)는 모달리티를 모른다.
 - `Item.status`(`pending → processing → ready / failed`)가 진행의 단일 진실원이다. 실패는 재시도 가능해야 한다.
 - 큰 파일을 백엔드로 프록시하지 않는다 — 업로드는 클라이언트→Storage 직행, 백엔드는 경로만 받는다.
 
@@ -209,7 +208,7 @@ supabase db push  # 마이그레이션 동기화
 
 1. **Routers (`app/routers/`)** — HTTP 엔드포인트. 파싱/검증/응답 + JWT 검증만. 비즈니스 로직·외부 API 호출 금지.
 2. **Services (`app/services/`)** — 파이프라인·분류·검색 등 도메인 로직.
-3. **Integrations (`app/integrations/`)** — 외부 의존(HCX-005, Embedding, STT, Storage) 래퍼. 서비스는 이 래퍼로만 외부 접근.
+3. **Integrations (`app/integrations/`)** — 외부 의존(HCX-005, Embedding, Storage) 래퍼. 서비스는 이 래퍼로만 외부 접근.
 4. **Models (`app/models/`)** — SQLModel 테이블 + Pydantic 스키마. 입력 스키마 ≠ 테이블 스키마.
 5. **DB (`app/db.py`)** — Supabase Postgres 엔진/세션. 세션은 `Depends` 주입, pgvector 등록.
 

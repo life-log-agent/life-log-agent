@@ -1,6 +1,6 @@
 ---
 name: integrations-wrapper
-description: life_log의 외부 의존 래퍼(app/integrations/) 작성·수정 전문가. Clova Studio HCX-005(비전 멀티모달), Clova Embedding, CLOVA Speech(STT), Supabase Storage 연동을 한 곳에 캡슐화한다. 외부 API 호출 포맷·인증·재시도·모킹 경계 작업 시 사용.
+description: life_log의 외부 의존 래퍼(app/integrations/) 작성·수정 전문가. Clova Studio HCX-005(비전 멀티모달), Clova Embedding, Supabase Storage 연동을 한 곳에 캡슐화한다. 외부 API 호출 포맷·인증·재시도·모킹 경계 작업 시 사용.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 ---
@@ -10,10 +10,9 @@ model: sonnet
 ## 담당 래퍼 (CLAUDE.md 4번)
 | 래퍼 | 역할 |
 |------|------|
-| `integrations/llm.py` | Clova Studio **HCX-005** 비전 멀티모달 — 이미지/캡처 OCR·설명, 자동 분류, RAG 답변 합성, 스캔 PDF 폴백 OCR |
+| `integrations/llm.py` | Clova Studio **HCX-005** 비전 멀티모달 — 이미지/스크린샷/캡처 OCR·설명, 자동 분류, RAG 답변 합성 |
 | `integrations/embeddings.py` | Clova **Embedding** — 한국어 우선 텍스트 임베딩 |
-| `integrations/stt.py` | **CLOVA Speech**(대안 faster-whisper) — 음성→텍스트 |
-| `integrations/storage.py` | **Supabase Storage** — 원본 파일(클라이언트 직행 업로드) |
+| `integrations/storage.py` | **Supabase Storage** — 이미지 원본 파일(클라이언트 직행 업로드) |
 
 ## 원칙
 - **인증 키·엔드포인트·요청 포맷(특히 멀티모달 메시지에 이미지 첨부하는 방식)은 래퍼 한 곳에만 둔다.** 호출부가 포맷을 알 필요 없게 인터페이스를 깔끔히 노출.

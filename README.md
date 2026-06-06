@@ -1,6 +1,6 @@
 # life-log-agent
 
-**AI 라이프로그 서비스** — 갤러리 캡처·사진·음성메모·PDF를 업로드하면 AI가 내용을 추출·자동 분류하고, 나중에 **자연어로 검색·질의(RAG)** 할 수 있다.
+**AI 라이프로그 서비스** — 갤러리의 캡처·사진·스크린샷 등 **이미지**를 업로드하면 AI가 내용을 추출·자동 분류하고, 나중에 **자연어로 검색·질의(RAG)** 할 수 있다.
 
 대표 사용 시나리오:
 - "사고 싶었던 화장품 캡처만 모아줘"
@@ -13,13 +13,13 @@
 - **프론트엔드:** React PWA (Vite + TypeScript) — 반응형·설치형, 데스크톱·iOS·안드로이드 공용
 - **백엔드:** FastAPI (순수 JSON API)
 - **데이터/저장/인증:** Supabase (Postgres + pgvector · Storage · Auth)
-- **멀티모달 LLM/임베딩/STT:** Clova Studio HCX-005 · Clova Embedding · CLOVA Speech
+- **멀티모달 LLM/임베딩:** Clova Studio HCX-005(비전) · Clova Embedding
 
 ## 동작 방식
 
 ```
-업로드(사진 / 음성메모 / 캡처 / PDF)
-  → AI 자동 처리 (OCR · STT · 멀티모달 LLM)
+업로드(사진 / 스크린샷 / 캡처)
+  → AI 자동 처리 (HCX-005 비전 OCR · 설명)
   → 자동 분류 + 텍스트 추출 + 임베딩
   → Supabase 저장 (메타데이터 + 벡터 + 원본 파일)
   → 자연어 검색 / 질의응답 (RAG)

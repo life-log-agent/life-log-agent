@@ -61,15 +61,17 @@ async def delete_item(
     user_id: str = Depends(current_user_id),
     session: AsyncSession = Depends(get_session),
 ) -> None:
-    item = await session.get(Item, item_id)
-    if not item or item.user_id != user_id:
+    # ORM 객체를 세션에 올리지 않고 raw SQL로 소유권 확인 + 삭제
+    row = (await session.execute(
+        text("SELECT storage_path FROM items WHERE id = :id AND user_id = :uid"),
+        {"id": str(item_id), "uid": user_id},
+    )).fetchone()
+    if not row:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    storage_path = item.storage_path
-    # ORM cascade가 NOT NULL 제약과 충돌하므로 SQL로 직접 삭제
-    await session.execute(text("DELETE FROM chunks WHERE item_id = :id"), {"id": item_id})
-    await session.execute(text("DELETE FROM items WHERE id = :id"), {"id": item_id})
+    storage_path: str = row.storage_path
+    await session.execute(text("DELETE FROM chunks WHERE item_id = :id"), {"id": str(item_id)})
+    await session.execute(text("DELETE FROM items WHERE id = :id"), {"id": str(item_id)})
     await session.commit()
-    # Storage 파일 삭제 — DB 커밋 후 시도, 실패해도 응답은 204
     try:
         await delete_image(storage_path)
     except Exception:

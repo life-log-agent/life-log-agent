@@ -1,5 +1,4 @@
 """벡터 유사도 검색 + HCX-005 재랭크/답변 합성."""
-import json
 import uuid
 from datetime import datetime
 
@@ -9,6 +8,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.integrations import embeddings as embed_svc
 from app.integrations import llm
 from app.models.item import EvidenceItem, SearchResponse
+
+# 이 값 미만의 유사도 청크는 질문과 무관한 것으로 판단해 LLM에 넘기지 않는다.
+# 등록된 사진 기반으로만 답변해야 하므로, 낮은 점수 결과로 환각을 방지한다.
+_MIN_SCORE = 0.30
 
 
 async def search(
@@ -58,19 +61,29 @@ async def search(
     """)
     rows = (await session.execute(sql, params)).fetchall()
 
-    if not rows:
-        return SearchResponse(
-            answer="관련 기록을 찾지 못했어요. 필터를 바꾸거나 더 많은 기록을 업로드해보세요.",
-            evidence=[],
-            query=query,
-        )
+    _NO_RESULT_MSG = "등록된 사진 기반으로는 알 수 없는 정보입니다. 관련 사진을 업로드하면 답변할 수 있어요."
 
-    # 3. HCX-005로 답변 합성
+    if not rows:
+        return SearchResponse(answer=_NO_RESULT_MSG, evidence=[], query=query)
+
+    # 3. 유사도 임계값 필터 — 관련 없는 청크로 환각 답변 방지
+    relevant = [r for r in rows if float(r.score) >= _MIN_SCORE]
+    if not relevant:
+        return SearchResponse(answer=_NO_RESULT_MSG, evidence=[], query=query)
+
+    # 4. HCX-005로 답변 합성 (점수 포함해 LLM이 관련성 판단 가능하게)
     contexts = [
-        f"파일: {r.original_filename}\n카테고리: {r.category}\n장소: {r.place}\n요약: {r.summary}\n내용: {r.text}"
-        for r in rows
+        f"[관련도: {r.score:.2f}] 파일: {r.original_filename}\n"
+        f"카테고리: {r.category}\n장소: {r.place}\n요약: {r.summary}\n내용: {r.text}"
+        for r in relevant
     ]
-    answer = await llm.synthesize_answer(query, contexts)
+    result = await llm.synthesize_answer(query, contexts)
+    answered: bool = result.get("answered", False)
+    answer_text: str = result.get("text", _NO_RESULT_MSG)
+
+    # answered=False면 관련 없는 기록을 근거로 보이지 않음
+    if not answered:
+        return SearchResponse(answer=answer_text, evidence=[], query=query)
 
     evidence = [
         EvidenceItem(
@@ -83,7 +96,7 @@ async def search(
             captured_at=r.captured_at,
             score=float(r.score),
         )
-        for r in rows
+        for r in relevant
     ]
 
-    return SearchResponse(answer=answer, evidence=evidence, query=query)
+    return SearchResponse(answer=answer_text, evidence=evidence, query=query)

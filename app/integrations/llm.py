@@ -123,8 +123,13 @@ async def classify_image(description: str) -> dict[str, Any]:
         return {"category": "etc", "tags": [], "place": None, "summary": description[:80]}
 
 
-async def synthesize_answer(query: str, contexts: list[str]) -> str:
-    """RAG 컨텍스트로 자연어 답변을 생성한다."""
+async def synthesize_answer(query: str, contexts: list[str]) -> dict[str, Any]:
+    """RAG 컨텍스트로 답변을 생성한다.
+
+    반환: {"answered": bool, "text": str}
+    - answered=True: 기록에서 근거를 찾아 답변함
+    - answered=False: 등록된 사진 기반으로 알 수 없는 정보
+    """
     context_text = "\n\n".join(f"[기록 {i+1}]\n{c}" for i, c in enumerate(contexts))
     messages = [
         {
@@ -133,9 +138,13 @@ async def synthesize_answer(query: str, contexts: list[str]) -> str:
                 {
                     "type": "text",
                     "text": (
-                        "너는 사용자의 기록을 검색해 답변하는 AI 비서야. "
-                        "제공된 기록만을 근거로 답변하고, 없는 정보는 만들지 마. "
-                        "답변은 한국어로 2~3문장 이내로 간결하게."
+                        "너는 사용자가 직접 업로드한 사진 기록만을 기반으로 답변하는 AI 비서야.\n"
+                        "아래 규칙을 반드시 지켜:\n"
+                        "1. 오직 '관련 기록'에 명시된 내용만 사용해 답변해. 기록 밖의 일반 지식은 절대 사용하지 마.\n"
+                        "2. 질문이 기록과 관련 없거나 기록만으로 답할 수 없으면 answered를 false로 해.\n"
+                        "3. 관련도가 낮은 기록(0.4 미만)은 근거로 삼지 마.\n"
+                        "4. 반드시 아래 JSON 형식만 출력해. 다른 텍스트 없이.\n"
+                        '{"answered": true/false, "text": "답변 또는 알 수 없는 이유"}'
                     ),
                 }
             ],
@@ -147,4 +156,9 @@ async def synthesize_answer(query: str, contexts: list[str]) -> str:
             ],
         },
     ]
-    return await _chat(messages, max_tokens=400)
+    raw = await _chat(messages, max_tokens=400)
+    try:
+        cleaned = raw.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        return json.loads(cleaned)
+    except (json.JSONDecodeError, ValueError):
+        return {"answered": False, "text": "등록된 사진 기반으로는 알 수 없는 정보입니다."}

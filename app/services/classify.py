@@ -1,0 +1,27 @@
+"""이미지 설명 → 카테고리·태그·장소·요약 추출."""
+import json
+import logging
+from typing import Any
+
+from app.integrations import llm
+
+log = logging.getLogger(__name__)
+
+
+async def classify(description: str) -> dict[str, Any]:
+    """HCX-005로 분류 결과를 반환한다.
+
+    Returns:
+        {"category": str, "tags": list[str], "place": str | None, "summary": str}
+    """
+    result = await llm.classify_image(description)
+    # 필드 보정
+    category = result.get("category", "etc")
+    if category not in ("cosmetic", "travel", "food", "etc"):
+        category = "etc"
+    tags: list[str] = result.get("tags") or []
+    place: str | None = result.get("place")
+    summary: str = result.get("summary") or description[:80]
+
+    log.info("classified: category=%s tags=%s place=%s", category, tags, place)
+    return {"category": category, "tags": tags, "place": place, "summary": summary}

@@ -29,3 +29,7 @@ dist/
 Thumbs.db
 .idea/
 .vscode/
+
+# Local zip archives / extracted bundles
+*.zip
+*_extracted/

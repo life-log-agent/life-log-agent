@@ -1,16 +1,93 @@
-/* 3 · 업로드 (입력) */
-import { Phone, AppBar, Btn, Pill, DemoTag, Thumb } from "../components/ui";
-import { CAT, type CategoryKey } from "../data/samples";
+/* 3 · 업로드 (실제 연동) */
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { Phone, AppBar, Btn, Pill } from "../components/ui";
+import { supabase } from "../lib/supabase";
+import { ingest } from "../lib/api";
+import { useAuth } from "../lib/auth";
+
+interface PreviewFile {
+  file: File;
+  previewUrl: string;
+}
 
 export default function Upload() {
-  const sel: { cat: CategoryKey; fname: string }[] = [
-    { cat: "cosmetic", fname: "cosmetic_lipstick.png" },
-    { cat: "travel", fname: "jeju_travel.png" },
-    { cat: "food", fname: "food_restaurant.png" },
-  ];
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [selected, setSelected] = useState<PreviewFile[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<string>("");
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    if (!files.length) return;
+    const previews: PreviewFile[] = files.map((f) => ({
+      file: f,
+      previewUrl: URL.createObjectURL(f),
+    }));
+    setSelected((prev) => [...prev, ...previews]);
+    // reset input so same files can be re-selected
+    e.target.value = "";
+  }
+
+  function removeFile(index: number) {
+    setSelected((prev) => {
+      URL.revokeObjectURL(prev[index].previewUrl);
+      return prev.filter((_, i) => i !== index);
+    });
+  }
+
+  async function handleUpload() {
+    if (!selected.length || !user) return;
+    setUploading(true);
+    setError(null);
+
+    try {
+      for (let i = 0; i < selected.length; i++) {
+        const { file } = selected[i];
+        const ext = file.name.split(".").pop() ?? "jpg";
+        const storagePath = `${user.id}/${uuidv4()}.${ext}`;
+
+        setProgress(`업로드 중… (${i + 1}/${selected.length})`);
+
+        // 1. Supabase Storage에 직접 업로드
+        const { error: storageError } = await supabase.storage
+          .from("life-log-images")
+          .upload(storagePath, file, { upsert: false });
+
+        if (storageError) throw new Error(`Storage 오류: ${storageError.message}`);
+
+        // 2. FastAPI /ingest 호출
+        await ingest(storagePath, file.name);
+      }
+
+      // 업로드 완료 → 처리 상태 화면으로
+      navigate("/processing");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "업로드 중 오류가 발생했습니다.");
+    } finally {
+      setUploading(false);
+      setProgress("");
+    }
+  }
+
   return (
     <Phone>
       <AppBar title="업로드" />
+      {/* 숨겨진 파일 입력 */}
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+
       <div className="body">
         <div className="rowflex spread" style={{ flex: "0 0 auto" }}>
           <div>
@@ -19,10 +96,12 @@ export default function Upload() {
               갤러리에서 여러 장 한 번에 고를 수 있어요
             </div>
           </div>
-          <Pill tone="green">3장 선택</Pill>
+          {selected.length > 0 && (
+            <Pill tone="green">{selected.length}장 선택</Pill>
+          )}
         </div>
 
-        {/* preview grid */}
+        {/* 미리보기 그리드 */}
         <div
           style={{
             display: "grid",
@@ -32,34 +111,45 @@ export default function Upload() {
             flex: "0 0 auto",
           }}
         >
-          {sel.map((s, i) => {
-            const c = CAT[s.cat];
-            return (
-              <div key={i} style={{ position: "relative" }}>
-                <Thumb glyph={c.emoji} fname={s.fname} bg={c.bg} h={104} />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 6,
-                    right: 6,
-                    width: 22,
-                    height: 22,
-                    borderRadius: "50%",
-                    background: "rgba(0,0,0,.55)",
-                    color: "#fff",
-                    display: "grid",
-                    placeItems: "center",
-                    fontSize: 13,
-                    fontWeight: 800,
-                  }}
-                >
-                  ×
-                </div>
-              </div>
-            );
-          })}
-          {/* add more tile */}
-          <div
+          {selected.map((pf, i) => (
+            <div key={i} style={{ position: "relative" }}>
+              <img
+                src={pf.previewUrl}
+                alt={pf.file.name}
+                style={{
+                  width: "100%",
+                  height: 104,
+                  objectFit: "cover",
+                  borderRadius: 12,
+                  display: "block",
+                }}
+              />
+              <button
+                onClick={() => removeFile(i)}
+                style={{
+                  position: "absolute",
+                  top: 6,
+                  right: 6,
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  background: "rgba(0,0,0,.55)",
+                  color: "#fff",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "grid",
+                  placeItems: "center",
+                  fontSize: 13,
+                  fontWeight: 800,
+                }}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          {/* 추가 타일 */}
+          <button
+            onClick={() => inputRef.current?.click()}
             style={{
               height: 104,
               border: "2px dashed var(--line)",
@@ -68,39 +158,39 @@ export default function Upload() {
               display: "grid",
               placeItems: "center",
               color: "var(--gray-2)",
+              cursor: "pointer",
             }}
           >
             <div style={{ textAlign: "center" }}>
               <div style={{ fontSize: 26, lineHeight: 1 }}>＋</div>
-              <div style={{ fontSize: 10, fontWeight: 800, marginTop: 4 }}>더 추가</div>
+              <div style={{ fontSize: 10, fontWeight: 800, marginTop: 4 }}>
+                {selected.length === 0 ? "사진 선택" : "더 추가"}
+              </div>
             </div>
-          </div>
-        </div>
-        <div style={{ marginTop: 10, flex: "0 0 auto" }}>
-          <DemoTag>데모용 합성 이미지</DemoTag>
+          </button>
         </div>
 
-        {/* optional memo / tag hint */}
-        <div style={{ marginTop: 20, flex: "0 0 auto" }}>
-          <div className="rowflex spread" style={{ marginBottom: 8 }}>
-            <span className="eyebrow">메모·태그 힌트</span>
-            <span className="muted tiny" style={{ fontWeight: 700, whiteSpace: "nowrap" }}>
-              선택
-            </span>
+        {/* 오류 표시 */}
+        {error && (
+          <div
+            style={{
+              flex: "0 0 auto",
+              marginTop: 14,
+              padding: "10px 14px",
+              borderRadius: 10,
+              background: "#FFF0F0",
+              border: "1px solid #FFC2C4",
+              fontSize: 13,
+              fontWeight: 700,
+              color: "var(--red-d)",
+              lineHeight: 1.45,
+            }}
+          >
+            ⚠️ {error}
           </div>
-          <div className="field" style={{ alignItems: "flex-start", height: 76 }}>
-            <span className="muted" style={{ fontWeight: 600, fontSize: 14 }}>
-              예) 제주 여행에서 가고 싶었던 곳…
-            </span>
-          </div>
-          <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
-            <span className="chip">＋ 여행</span>
-            <span className="chip">＋ 위시리스트</span>
-            <span className="chip">＋ 영수증</span>
-          </div>
-        </div>
+        )}
 
-        {/* EXIF auto note */}
+        {/* EXIF 안내 */}
         <div
           className="card card-pad"
           style={{
@@ -121,10 +211,15 @@ export default function Upload() {
         </div>
       </div>
 
-      {/* thumb-reach primary action */}
+      {/* 업로드 버튼 */}
       <div className="dock">
-        <Btn variant="green" icon="↑">
-          3장 업로드
+        <Btn
+          variant={selected.length > 0 && !uploading ? "green" : "locked"}
+          icon={uploading ? undefined : "↑"}
+          onClick={handleUpload}
+          disabled={selected.length === 0 || uploading}
+        >
+          {uploading ? progress || "업로드 중…" : `${selected.length > 0 ? selected.length + "장 " : ""}업로드`}
         </Btn>
       </div>
     </Phone>

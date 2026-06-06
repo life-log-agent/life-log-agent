@@ -1,6 +1,7 @@
-/* life_log — route table + index menu linking every screen.
-   Static UI scaffold: routes render the ported screens; no data/auth/API. */
-import { Routes, Route, Link } from "react-router-dom";
+/* life_log — route table with auth protection */
+import type { ReactNode } from "react";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { useAuth } from "./lib/auth";
 
 import Onboarding from "./screens/Onboarding";
 import Home from "./screens/Home";
@@ -13,6 +14,40 @@ import Search from "./screens/Search";
 import SearchEmpty from "./screens/SearchEmpty";
 import Detail from "./screens/Detail";
 import { Phone } from "./components/ui";
+
+// ── Protected Route ──────────────────────────────────────────
+
+function ProtectedRoute({ children }: { children: ReactNode }) {
+  const { session, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <Phone>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 14,
+            color: "var(--gray-2)",
+            fontWeight: 600,
+          }}
+        >
+          불러오는 중…
+        </div>
+      </Phone>
+    );
+  }
+
+  if (!session) {
+    return <Navigate to="/onboarding" replace />;
+  }
+
+  return <>{children}</>;
+}
+
+// ── Index Menu (dev only) ────────────────────────────────────
 
 interface ScreenLink {
   to: string;
@@ -42,12 +77,13 @@ const GROUPS: { title: string; items: ScreenLink[] }[] = [
       { to: "/timeline", label: "분류 결과 / 타임라인" },
       { to: "/search", label: "검색 / 질의응답 (RAG)" },
       { to: "/search-empty", label: "검색 결과 0건" },
-      { to: "/detail", label: "항목 상세" },
+      { to: "/detail/:id", label: "항목 상세" },
     ],
   },
 ];
 
 function IndexMenu() {
+  const { session, signOut } = useAuth();
   return (
     <Phone>
       <div className="appbar" style={{ paddingTop: 6 }}>
@@ -60,8 +96,19 @@ function IndexMenu() {
       </div>
       <div className="body" style={{ overflow: "auto" }}>
         <p className="muted tiny" style={{ fontWeight: 600, lineHeight: 1.5, marginTop: 0 }}>
-          디자인 핸드오프 10개 화면의 정적 스캐폴드입니다. 화면을 눌러 이동하세요.
+          {session
+            ? `로그인됨: ${session.user.email}`
+            : "비로그인 상태 — 보호 화면은 /onboarding으로 이동합니다."}
         </p>
+        {session && (
+          <button
+            className="btn btn--ghost"
+            style={{ marginBottom: 12, width: "100%" }}
+            onClick={() => signOut().catch(console.error)}
+          >
+            로그아웃
+          </button>
+        )}
         {GROUPS.map((g) => (
           <div key={g.title} style={{ marginTop: 18 }}>
             <div className="eyebrow" style={{ marginBottom: 8 }}>
@@ -71,7 +118,7 @@ function IndexMenu() {
               {g.items.map((it) => (
                 <Link
                   key={it.to}
-                  to={it.to}
+                  to={it.to === "/detail/:id" ? "/detail/demo" : it.to}
                   className="row"
                   style={{ padding: "12px 14px", textDecoration: "none", color: "var(--ink)" }}
                 >
@@ -93,23 +140,99 @@ function IndexMenu() {
   );
 }
 
+// ── App ──────────────────────────────────────────────────────
+
 export default function App() {
   return (
     <div className="app-stage">
       <Routes>
-        <Route path="/" element={<IndexMenu />} />
+        {/* 공개 라우트 */}
         <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/home-empty" element={<HomeEmpty />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/processing" element={<Processing />} />
-        <Route path="/processing-failed" element={<ProcessingFailed />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/search-empty" element={<SearchEmpty />} />
-        <Route path="/detail" element={<Detail />} />
+
+        {/* 보호 라우트 */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/home-empty"
+          element={
+            <ProtectedRoute>
+              <HomeEmpty />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <Upload />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/processing"
+          element={
+            <ProtectedRoute>
+              <Processing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/processing-failed"
+          element={
+            <ProtectedRoute>
+              <ProcessingFailed />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/timeline"
+          element={
+            <ProtectedRoute>
+              <Timeline />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search-empty"
+          element={
+            <ProtectedRoute>
+              <SearchEmpty />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail/:id"
+          element={
+            <ProtectedRoute>
+              <Detail />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 루트 → 로그인 여부에 따라 분기 */}
+        <Route path="/" element={<RootRedirect />} />
         <Route path="*" element={<IndexMenu />} />
       </Routes>
     </div>
   );
+}
+
+function RootRedirect() {
+  const { session, loading } = useAuth();
+  if (loading) return null;
+  return <Navigate to={session ? "/home" : "/onboarding"} replace />;
 }

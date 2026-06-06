@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#7B4A2B"/>
+  <!-- mole body -->
+  <ellipse cx="96" cy="118" rx="52" ry="44" fill="#C8956A"/>
+  <!-- head -->
+  <ellipse cx="96" cy="80" rx="40" ry="36" fill="#C8956A"/>
+  <!-- ears -->
+  <ellipse cx="62" cy="60" rx="12" ry="16" fill="#C8956A"/>
+  <ellipse cx="130" cy="60" rx="12" ry="16" fill="#C8956A"/>
+  <ellipse cx="62" cy="60" rx="7" ry="10" fill="#E8B4A0"/>
+  <ellipse cx="130" cy="60" rx="7" ry="10" fill="#E8B4A0"/>
+  <!-- eyes -->
+  <ellipse cx="82" cy="76" rx="7" ry="7" fill="#3D1F0D"/>
+  <ellipse cx="110" cy="76" rx="7" ry="7" fill="#3D1F0D"/>
+  <circle cx="84" cy="74" r="2" fill="white"/>
+  <circle cx="112" cy="74" r="2" fill="white"/>
+  <!-- nose -->
+  <ellipse cx="96" cy="88" rx="8" ry="6" fill="#9E5C3A"/>
+  <!-- smile -->
+  <path d="M84 96 Q96 106 108 96" stroke="#7B4A2B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- claws -->
+  <path d="M50 138 Q44 130 46 122" stroke="#A0704A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M58 144 Q50 138 50 130" stroke="#A0704A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M142 138 Q148 130 146 122" stroke="#A0704A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M134 144 Q142 138 142 130" stroke="#A0704A" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

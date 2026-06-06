@@ -132,6 +132,7 @@ export default function Detail() {
           <img
             src={signedUrl}
             alt={item.original_filename ?? "기록 이미지"}
+            onError={() => setSignedUrl(null)}
             style={{
               width: "100%",
               height: 188,

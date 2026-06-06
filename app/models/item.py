@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     pass
 
 ItemStatus = str  # "pending" | "processing" | "ready" | "failed"
-CategoryKey = str  # "cosmetic" | "travel" | "food" | "etc"
+CategoryKey = str  # "화장품" | "여행지" | "맛집" | "기타"
 
 
 class Item(SQLModel, table=True):
@@ -36,7 +36,13 @@ class Item(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
-    chunks: list["Chunk"] = Relationship(back_populates="item")
+    chunks: list["Chunk"] = Relationship(
+        back_populates="item",
+        # 부모 삭제 시 ORM이 자식(chunks)을 lazy-load 하지 않도록 한다.
+        # async 세션에서 lazy-load는 MissingGreenlet로 실패하므로,
+        # 청크 정리는 라우터에서 명시적으로 수행한다.
+        sa_relationship_kwargs={"passive_deletes": True},
+    )
 
 
 class Chunk(SQLModel, table=True):

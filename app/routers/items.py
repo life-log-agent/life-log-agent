@@ -3,7 +3,7 @@ import uuid
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import current_user_id
@@ -64,5 +64,9 @@ async def delete_item(
     item = await session.get(Item, item_id)
     if not item or item.user_id != user_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    # 청크(임베딩)를 먼저 지운다. create_all로 만든 로컬 DB의 FK엔
+    # ON DELETE CASCADE가 없을 수 있어 Item만 지우면 FK 위반으로 실패한다.
+    # (index.py의 멱등 삭제 패턴과 동일)
+    await session.execute(text("DELETE FROM chunks WHERE item_id = :id"), {"id": item_id})
     await session.delete(item)
     await session.commit()

@@ -52,7 +52,7 @@ async def signed_url(
     if not item or item.user_id != user_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     url = await create_signed_url(item.storage_path)
-    return {"url": url}
+    return {"signed_url": url}
 
 
 @router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)

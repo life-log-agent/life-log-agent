@@ -1,5 +1,4 @@
 """POST /search 기본 흐름 테스트."""
-import uuid
 from unittest.mock import AsyncMock
 
 from fastapi.testclient import TestClient

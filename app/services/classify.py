@@ -1,5 +1,4 @@
 """이미지 설명 → 카테고리·태그·장소·요약 추출."""
-import json
 import logging
 from typing import Any
 
@@ -23,5 +22,7 @@ async def classify(description: str) -> dict[str, Any]:
     place: str | None = result.get("place")
     summary: str = result.get("summary") or description[:80]
 
-    log.info("classified: category=%s tags=%s place=%s", category, tags, place)
+    # PII 주의: tags·place·summary는 이미지 내용에서 추출된 값이라 로그에 남기지 않는다
+    # (CLAUDE.md §8). 고정 분류값인 category와 개수만 남긴다.
+    log.info("classified: category=%s tags=%d", category, len(tags))
     return {"category": category, "tags": tags, "place": place, "summary": summary}

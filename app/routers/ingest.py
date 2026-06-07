@@ -22,9 +22,19 @@ async def ingest(
     session: AsyncSession = Depends(get_session),
 ) -> IngestResponse:
     """이미지 경로를 받아 처리 파이프라인을 백그라운드로 시작한다."""
+    # 보안: storage_path는 반드시 인증된 사용자 본인 경로(`{user_id}/...`)여야 한다.
+    # 백엔드는 service_role 키로 Storage에 접근(RLS 우회)하므로, 검증이 없으면
+    # 임의 경로를 넘겨 다른 사용자의 객체에 대한 서명 URL/다운로드를 유발할 수 있다.
+    normalized_path = body.storage_path.lstrip("/")
+    if ".." in normalized_path or not normalized_path.startswith(f"{user_id}/"):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="storage_path must be under your own user prefix",
+        )
+
     item = Item(
         user_id=user_id,
-        storage_path=body.storage_path,
+        storage_path=normalized_path,
         original_filename=body.original_filename,
         status="pending",
         tags=json.dumps(body.tags or [], ensure_ascii=False),

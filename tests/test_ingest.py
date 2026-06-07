@@ -40,13 +40,14 @@ def test_retry_resets_status(client: TestClient, mock_pipeline) -> None:
     item_id = resp.json()["item_id"]
 
     # 2. 수동으로 failed 상태 만들기
-    from tests.conftest import _TestSession
     import asyncio
+
     from app.models.item import Item
+    from tests.conftest import _TestSession
 
     async def _set_failed() -> None:
         async with _TestSession() as s:
-            item = await s.get(Item, item_id)
+            item = await s.get(Item, uuid.UUID(item_id))
             assert item is not None
             item.status = "failed"
             await s.commit()

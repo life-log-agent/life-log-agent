@@ -2,10 +2,10 @@ from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import create_engine
+from sqlmodel import SQLModel
 
 from app.config import settings
 from app.models import item  # noqa: F401 — registers SQLModel metadata
-from sqlmodel import SQLModel
 
 config = context.config
 if config.config_file_name:

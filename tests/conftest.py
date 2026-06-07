@@ -6,13 +6,12 @@ from unittest.mock import AsyncMock, patch
 import pytest
 import pytest_asyncio
 from fastapi.testclient import TestClient
-from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlmodel import SQLModel
 
-from app.main import app
-from app.db import get_session
 from app.auth import current_user_id
+from app.db import get_session
+from app.main import app
 
 # ── 인메모리 SQLite (pgvector 미지원 — 기능 테스트용) ─────────
 TEST_DB_URL = "sqlite+aiosqlite:///:memory:"

@@ -4,8 +4,8 @@ Revision ID: 001
 Revises:
 Create Date: 2026-06-06
 """
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from pgvector.sqlalchemy import Vector
 
 revision = "001"

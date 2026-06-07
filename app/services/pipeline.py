@@ -4,8 +4,7 @@ Item.status 전이: pending → processing → ready | failed
 """
 import json
 import logging
-from datetime import datetime, timezone
-from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime
 
 from app.db import AsyncSessionLocal
 from app.integrations import llm, storage
@@ -25,9 +24,10 @@ def _extract_exif_datetime(image_bytes: bytes) -> datetime | None:
             or exif.get("0th", {}).get(piexif.ImageIFD.DateTime)
         )
         if dt_str:
-            return datetime.strptime(dt_str.decode(), "%Y:%m:%d %H:%M:%S").replace(
-                tzinfo=timezone.utc
-            )
+            # EXIF DateTimeOriginal은 타임존 없는 카메라 로컬 시각이고,
+            # captured_at 컬럼도 TIMESTAMP WITHOUT TIME ZONE(naive)이므로
+            # aware datetime을 만들지 않는다(asyncpg가 naive 컬럼에 aware 값을 거부).
+            return datetime.strptime(dt_str.decode(), "%Y:%m:%d %H:%M:%S")
     except Exception:
         pass
     return None
@@ -86,11 +86,18 @@ async def process_item(item_id: str) -> None:
 
             item.status = "ready"
             item.error_message = None
+            item.updated_at = datetime.utcnow()
+            await session.commit()
 
         except Exception as exc:
+            # 파이프라인 또는 commit 중 어떤 예외든 여기서 failed로 수렴시킨다.
+            # rollback 없이 다시 commit하면 깨진 트랜잭션 때문에 또 실패해
+            # status가 processing에 영구히 갇힌다.
             log.exception("pipeline failed for item %s", item_id)
-            item.status = "failed"
-            item.error_message = str(exc)[:500]
-
-        item.updated_at = datetime.utcnow()
-        await session.commit()
+            await session.rollback()
+            item = await session.get(Item, item_id)
+            if item:
+                item.status = "failed"
+                item.error_message = str(exc)[:500]
+                item.updated_at = datetime.utcnow()
+                await session.commit()

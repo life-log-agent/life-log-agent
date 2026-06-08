@@ -1,0 +1,73 @@
+/* ===================================================================
+   Cal.com — Typography tokens
+   Cal Sans (display, 600, negative tracking) + Inter (UI/body)
+   + JetBrains Mono (code). The boundary is strict.
+   =================================================================== */
+
+:root {
+  /* --- Families --- */
+  --font-display: "Cal Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Weights --- */
+  --fw-regular: 400;   /* @kind font */
+  --fw-medium: 500;    /* @kind font */
+  --fw-semibold: 600;  /* @kind font */
+  --fw-bold: 700;      /* @kind font */
+
+  /* --- Display scale (Cal Sans, weight 600) --- */
+  --display-xl-size: 64px;
+  --display-xl-lh: 1.05;  /* @kind other */
+  --display-xl-ls: -2px;  /* @kind font */
+  --display-lg-size: 48px;
+  --display-lg-lh: 1.1;   /* @kind other */
+  --display-lg-ls: -1.5px; /* @kind font */
+  --display-md-size: 36px;
+  --display-md-lh: 1.15;  /* @kind other */
+  --display-md-ls: -1px;  /* @kind font */
+  --display-sm-size: 28px;
+  --display-sm-lh: 1.2;   /* @kind other */
+  --display-sm-ls: -0.5px; /* @kind font */
+
+  /* --- Title scale (Inter, weight 600) --- */
+  --title-lg-size: 22px;
+  --title-lg-lh: 1.3;     /* @kind other */
+  --title-lg-ls: -0.3px;  /* @kind font */
+  --title-md-size: 18px;
+  --title-md-lh: 1.4;     /* @kind other */
+  --title-md-ls: 0;       /* @kind font */
+  --title-sm-size: 16px;
+  --title-sm-lh: 1.4;     /* @kind other */
+  --title-sm-ls: 0;       /* @kind font */
+
+  /* --- Body scale (Inter) --- */
+  --body-md-size: 16px;
+  --body-md-lh: 1.5;      /* @kind other */
+  --body-sm-size: 14px;
+  --body-sm-lh: 1.5;      /* @kind other */
+  --caption-size: 13px;
+  --caption-lh: 1.4;      /* @kind other */
+  --caption-weight: 500;  /* @kind font */
+
+  /* --- Utility roles --- */
+  --code-size: 14px;
+  --code-lh: 1.5;         /* @kind other */
+  --button-size: 14px;
+  --button-weight: 600;   /* @kind font */
+  --nav-link-size: 14px;
+  --nav-link-weight: 500; /* @kind font */
+}
+
+/* ---- Optional ready-made type classes ---- */
+.cal-display-xl { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--display-xl-size); line-height: var(--display-xl-lh); letter-spacing: var(--display-xl-ls); color: var(--text-heading); }
+.cal-display-lg { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--display-lg-size); line-height: var(--display-lg-lh); letter-spacing: var(--display-lg-ls); color: var(--text-heading); }
+.cal-display-md { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--display-md-size); line-height: var(--display-md-lh); letter-spacing: var(--display-md-ls); color: var(--text-heading); }
+.cal-display-sm { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--display-sm-size); line-height: var(--display-sm-lh); letter-spacing: var(--display-sm-ls); color: var(--text-heading); }
+.cal-title-lg  { font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: var(--title-lg-size); line-height: var(--title-lg-lh); letter-spacing: var(--title-lg-ls); color: var(--text-heading); }
+.cal-title-md  { font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: var(--title-md-size); line-height: var(--title-md-lh); color: var(--text-heading); }
+.cal-title-sm  { font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: var(--title-sm-size); line-height: var(--title-sm-lh); color: var(--text-heading); }
+.cal-body-md   { font-family: var(--font-sans); font-weight: var(--fw-regular); font-size: var(--body-md-size); line-height: var(--body-md-lh); color: var(--text-body); }
+.cal-body-sm   { font-family: var(--font-sans); font-weight: var(--fw-regular); font-size: var(--body-sm-size); line-height: var(--body-sm-lh); color: var(--text-body); }
+.cal-caption   { font-family: var(--font-sans); font-weight: var(--caption-weight); font-size: var(--caption-size); line-height: var(--caption-lh); color: var(--text-muted); }
+.cal-code      { font-family: var(--font-mono); font-weight: var(--fw-regular); font-size: var(--code-size); line-height: var(--code-lh); }

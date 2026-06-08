@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>life_log — 발표 자료</title>
+<link rel="stylesheet" href="_ds/cal-com-design-system-436c9d81-5b27-4597-a3bc-05f3a6c63d5e/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/cal-com-design-system-436c9d81-5b27-4597-a3bc-05f3a6c63d5e/tokens/colors.css">
+<link rel="stylesheet" href="_ds/cal-com-design-system-436c9d81-5b27-4597-a3bc-05f3a6c63d5e/tokens/typography.css">
+<link rel="stylesheet" href="_ds/cal-com-design-system-436c9d81-5b27-4597-a3bc-05f3a6c63d5e/tokens/spacing.css">
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+  <!-- =================== S1 · COVER =================== -->
+  <section class="slide" data-screen-label="01 표지">
+    <div class="slide-inner" style="flex-direction:row; align-items:center; gap:72px;">
+      <div style="flex:1; display:flex; flex-direction:column; gap:28px;" class="reveal">
+        <div class="kicker">AI 사진 검색 PWA · 발표 자료</div>
+        <div style="display:flex; align-items:center; gap:18px;">
+          <span class="ll-mark" style="width:74px; height:74px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.6"></circle><path d="m21 14-4.5-4.5L7 19"></path><circle cx="18" cy="19" r="3.2" stroke-width="2.2"></circle><path d="m22 23-1.6-1.6"></path></svg>
+          </span>
+          <span class="ll-wordmark" style="font-size:64px;">life_log</span>
+        </div>
+        <h1 class="stitle" style="font-size:60px; letter-spacing:-2px;">쌓이기만 하던 기록을,<br>찾을 수 있는 기록으로.</h1>
+        <p class="smsg" style="font-size:24px; margin-top:4px;">갤러리에 흩어진 사진·스크린샷을 AI가 자동으로 <b>읽고(OCR)·분류</b>하고, <b>자연어로 검색·질의</b>하는 반응형 PWA.</p>
+        <div style="display:flex; gap:12px; margin-top:8px;">
+          <span class="chip"><i data-lucide="users" class="lucide-ico" style="font-size:18px; color:var(--cal-muted);"></i>Team life_log</span>
+          <span class="chip"><i data-lucide="presentation" class="lucide-ico" style="font-size:18px; color:var(--cal-muted);"></i>발표자 · 〈이름〉</span>
+        </div>
+        <div class="demo-pill" style="margin-top:6px;"><span class="d"></span>이 자료의 모든 화면·데이터는 <b style="margin:0 2px;">샘플 / 데모</b>입니다 (실 키·서버·개인정보 미포함)</div>
+      </div>
+
+      <!-- hero phone: search result -->
+      <div style="flex-shrink:0;" class="reveal d2">
+        <div class="phone" style="--pw:312px;">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="signal" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+            <div class="appbar"><span class="t">검색</span><i data-lucide="x" class="appbar-ico lucide-ico" style="font-size:18px; color:var(--cal-muted);"></i></div>
+            <div class="body" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; gap:8px; align-items:center; background:var(--cal-surface-soft); border-radius:12px; padding:11px 13px;">
+                <i data-lucide="search" class="lucide-ico" style="font-size:16px; color:var(--cal-muted);"></i>
+                <span style="font-size:13px; color:var(--cal-ink); font-weight:600;">지난달 제주 흑돼지 식당 어디였지?</span>
+              </div>
+              <div style="background:#fff; border:1px solid var(--cal-hairline); border-radius:12px; padding:13px;">
+                <div style="display:flex; align-items:center; gap:7px; font-size:11px; font-weight:700; color:#1d4ed8; margin-bottom:7px;"><i data-lucide="sparkles" class="lucide-ico" style="font-size:13px;"></i>AI 답변</div>
+                <div style="font-size:13px; line-height:1.5; color:var(--cal-body);">제주시 〈샘플 식당명〉으로 기록되어 있어요. <b style="color:var(--cal-ink);">5월 18일</b>에 저장한 사진이에요.</div>
+              </div>
+              <div style="font-size:11px; font-weight:700; color:var(--cal-muted-soft); margin-top:2px;">근거가 된 기록</div>
+              <div style="display:flex; gap:9px;">
+                <div class="imgph" style="width:64px; height:64px; border-radius:11px;"><i data-lucide="utensils" class="lucide-ico ic" style="font-size:22px;"></i><span class="smp">샘플</span></div>
+                <div style="min-width:0;">
+                  <div style="font-size:12.5px; font-weight:700; color:var(--cal-ink);">흑돼지 구이 · 영수증</div>
+                  <div style="font-size:11px; color:var(--cal-muted); margin-top:3px;">2025-05-18 · 제주</div>
+                  <span class="tl-cat" style="background:rgba(251,146,60,0.16); color:#c2410c; margin-top:6px; display:inline-block;">맛집</span>
+                  <span class="badge blue" style="font-size:10px; padding:2px 8px; margin-left:4px;">유사도 0.82</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== S2 · 문제와 사용자 =================== -->
+  <section class="slide" data-screen-label="02 문제와 사용자">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="ll-mark" style="width:26px;height:26px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="12" rx="2"></rect><path d="m20 13-5-5L8 16"></path></svg></span>문제와 사용자 · Before</div>
+          <h2 class="stitle">"그 캡처, 어디 갔지?"</h2>
+          <p class="smsg">저장은 계속 하는데, 정작 <b>필요할 때 다시 못 찾는다.</b></p>
+        </div>
+        <div class="rubric"><span class="tag"><span>기획 및 목표 적합성</span><span class="pts">10점</span></span><span class="sub">S1 · S2 충족</span></div>
+      </div>
+      <div class="sbody" style="display:flex; gap:40px; align-items:stretch;">
+        <!-- messy gallery -->
+        <div class="card" style="flex:1.05; padding:24px; position:relative;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><i data-lucide="layout-grid" class="lucide-ico" style="font-size:16px;"></i>쌓이기만 하는 갤러리 <span class="badge" style="margin-left:auto;">샘플</span></div>
+          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px;">
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="receipt" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="utensils" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="plane" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="ticket" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="sparkles" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="map-pin" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="message-square" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="image" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="qr-code" class="lucide-ico ic" style="font-size:20px;"></i></div>
+            <div class="imgph" style="aspect-ratio:1; border-radius:10px;"><i data-lucide="utensils" class="lucide-ico ic" style="font-size:20px;"></i></div>
+          </div>
+          <div style="margin-top:16px; display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--cal-hairline); border-radius:12px; padding:12px 15px;">
+            <i data-lucide="search-x" class="lucide-ico" style="font-size:20px; color:var(--cal-error);"></i>
+            <span style="font-size:15.5px; color:var(--cal-body);">제목·폴더로는 못 찾고, <b style="color:var(--cal-ink);">스크롤만 무한 반복</b>.</span>
+          </div>
+        </div>
+        <!-- who / how -->
+        <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+          <div class="rcard">
+            <div class="rh"><i data-lucide="user" class="lucide-ico" style="font-size:18px;"></i>대상 사용자</div>
+            <div class="rb">기록을 여기저기 <b>저장만 하고 다시 못 찾는 개인.</b></div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="rcard"><div class="rh"><i data-lucide="smartphone" class="lucide-ico" style="font-size:18px;"></i>폰</div><div class="rb"><b>업로드</b> 기기 — 사진을 올린다</div></div>
+            <div class="rcard"><div class="rh"><i data-lucide="monitor" class="lucide-ico" style="font-size:18px;"></i>PC</div><div class="rb"><b>검색·조회</b> 기기 — 같은 계정</div></div>
+          </div>
+          <div class="card dark" style="padding:20px 22px;">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div style="flex:1;"><div style="font-size:13px; color:var(--cal-on-dark-soft); font-weight:700; margin-bottom:4px;">BEFORE</div><div style="font-size:16px; color:#fff;">캡처는 쌓이는데 다시 못 찾음</div></div>
+              <i data-lucide="arrow-right" class="lucide-ico" style="font-size:22px; color:var(--cal-on-dark-soft);"></i>
+              <div style="flex:1;"><div style="font-size:13px; color:#86efac; font-weight:700; margin-bottom:4px;">AFTER</div><div style="font-size:16px; color:#fff;">자연어 한 줄로 근거 사진까지</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="pnum">02</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S3 · MVP 범위 =================== -->
+  <section class="slide" data-screen-label="03 MVP 범위">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>MVP 범위 · 실제 동작하는 기능 흐름</div>
+          <h2 class="stitle">이번 발표에서 실제로 동작하는 범위</h2>
+          <p class="smsg">대표 시나리오 — <b>"지난달 제주 흑돼지 식당"</b> 한 줄로 끝까지. 과장 없이 이만큼.</p>
+        </div>
+        <div class="rubric"><span class="tag"><span>구현 완성도</span><span class="pts">20점</span></span><span class="sub">S3 · S5 · S7 충족</span></div>
+      </div>
+      <div class="sbody" style="display:flex; flex-direction:column; justify-content:center; gap:30px;">
+        <div style="display:flex; align-items:stretch; gap:0;">
+          <div class="card white" style="flex:1; display:flex; flex-direction:column; gap:12px; padding:26px;">
+            <span class="num">1</span>
+            <div style="display:flex; align-items:center; gap:9px; font-size:21px; font-weight:700; color:var(--cal-ink);"><i data-lucide="upload" class="lucide-ico" style="font-size:21px;"></i>입력</div>
+            <div style="font-size:16px; line-height:1.5; color:var(--cal-body);">폰 갤러리에서 사진 <b style="color:var(--cal-ink);">여러 장 선택 → 업로드</b>. 즉시 <span class="mc" style="font-family:var(--font-mono); font-weight:600;">202</span> 응답.</div>
+          </div>
+          <div style="display:flex; align-items:center; padding:0 12px; color:var(--cal-muted-soft);"><i data-lucide="chevron-right" class="lucide-ico" style="font-size:30px;"></i></div>
+          <div class="card white" style="flex:1; display:flex; flex-direction:column; gap:12px; padding:26px;">
+            <span class="num">2</span>
+            <div style="display:flex; align-items:center; gap:9px; font-size:21px; font-weight:700; color:var(--cal-ink);"><i data-lucide="loader" class="lucide-ico" style="font-size:21px;"></i>처리 중</div>
+            <div style="font-size:16px; line-height:1.5; color:var(--cal-body);"><span class="mc" style="font-family:var(--font-mono);">pending → processing → ready</span> 상태가 화면에 단계로 표시.</div>
+          </div>
+          <div style="display:flex; align-items:center; padding:0 12px; color:var(--cal-muted-soft);"><i data-lucide="chevron-right" class="lucide-ico" style="font-size:30px;"></i></div>
+          <div class="card white" style="flex:1; display:flex; flex-direction:column; gap:12px; padding:26px;">
+            <span class="num">3</span>
+            <div style="display:flex; align-items:center; gap:9px; font-size:21px; font-weight:700; color:var(--cal-ink);"><i data-lucide="message-square-text" class="lucide-ico" style="font-size:21px;"></i>결과</div>
+            <div style="font-size:16px; line-height:1.5; color:var(--cal-body);">자연어 질문 → <b style="color:var(--cal-ink);">AI 답변 + 근거가 된 원본 사진</b>(썸네일·날짜·카테고리).</div>
+          </div>
+          <div style="display:flex; align-items:center; padding:0 12px; color:var(--cal-muted-soft);"><i data-lucide="chevron-right" class="lucide-ico" style="font-size:30px;"></i></div>
+          <div class="card white" style="flex:1; display:flex; flex-direction:column; gap:12px; padding:26px;">
+            <span class="num">4</span>
+            <div style="display:flex; align-items:center; gap:9px; font-size:21px; font-weight:700; color:var(--cal-ink);"><i data-lucide="rotate-ccw" class="lucide-ico" style="font-size:21px;"></i>다시 시도 / 기록</div>
+            <div style="font-size:16px; line-height:1.5; color:var(--cal-body);">실패 시 <span class="mc" style="font-family:var(--font-mono); color:#b91c1c;">failed</span> + <b style="color:var(--cal-ink);">재시도 버튼</b>. 모든 기록은 타임라인에 남음.</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; background:var(--cal-surface-soft); border:1px solid var(--cal-hairline); border-radius:12px; padding:16px 20px;">
+          <span class="badge" style="background:var(--cal-surface-strong);">이번 범위 제외</span>
+          <span style="font-size:16px; color:var(--cal-body);">음성 STT · PDF 입력 · 자동 갤러리 수집 — <b style="color:var(--cal-ink);">비목표</b>로 명확히 선을 그어 완성도에 집중.</span>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="pnum">03</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S4 · AI · NCLOUD 구조 (★30) =================== -->
+  <section class="slide" data-screen-label="04 AI·Ncloud 구조">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot" style="background:#2563eb;"></span>AI · NCloud 시스템 구성 · 핵심 장표</div>
+          <h2 class="stitle sm">AI·클라우드가 하나의 사용자 흐름으로 맞물린다</h2>
+          <p class="smsg" style="font-size:21px;">무거운 데이터는 <b>매니지드(Supabase)</b>, 앱·AI는 <b>NCloud</b> — 단순하고 견고하게.</p>
+        </div>
+        <div class="rubric"><span class="tag hi"><i data-lucide="star" class="lucide-ico" style="font-size:16px;"></i><span>AI·클라우드 활용</span><span class="pts">30점</span></span><span class="sub">최대 배점 · S4 핵심</span></div>
+      </div>
+      <div class="sbody" style="display:flex; gap:30px;">
+        <!-- DIAGRAM -->
+        <div style="flex:1.32; display:flex; flex-direction:column; gap:12px;">
+          <!-- phone -->
+          <div class="dbox" style="align-self:center; width:62%;">
+            <div class="bt"><i data-lucide="smartphone" class="lucide-ico" style="font-size:19px;"></i>폰 · React PWA</div>
+            <div class="bd">사진 선택·업로드 / 검색 질의</div>
+          </div>
+          <!-- branch arrows -->
+          <div style="display:flex; justify-content:center; gap:90px; color:var(--cal-muted-soft);">
+            <span style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--cal-body);"><span class="num blue" style="width:24px;height:24px;font-size:13px;">2</span><i data-lucide="arrow-down" class="lucide-ico" style="font-size:18px;"></i>경로+메타</span>
+            <span style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--cal-body);"><span class="num blue" style="width:24px;height:24px;font-size:13px;">1</span><i data-lucide="arrow-down" class="lucide-ico" style="font-size:18px;"></i>사진 직행</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;">
+            <!-- NCloud region -->
+            <div class="region ncloud" style="display:flex; flex-direction:column; gap:11px;">
+              <span class="rlabel">NCloud</span>
+              <div class="dbox" style="margin-top:4px;">
+                <div class="bt"><i data-lucide="server" class="lucide-ico" style="font-size:18px;"></i>FastAPI 서버</div>
+                <div class="bd">Ubuntu · systemd · Nginx + HTTPS</div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:center; gap:7px; color:var(--cal-muted); font-size:12.5px; font-weight:700;"><span class="num blue" style="width:22px;height:22px;font-size:12px;">3</span><i data-lucide="arrow-down" class="lucide-ico" style="font-size:16px;"></i>AI 처리</div>
+              <div class="dbox ai">
+                <div class="bt"><i data-lucide="eye" class="lucide-ico" style="font-size:18px;"></i>Clova HCX-005 <span class="badge violet" style="font-size:11px;">비전</span></div>
+                <div class="bd">OCR · 설명 · 분류 · RAG 답변</div>
+              </div>
+              <div class="dbox ai">
+                <div class="bt"><i data-lucide="binary" class="lucide-ico" style="font-size:18px;"></i>Clova Embedding v2</div>
+                <div class="bd">텍스트 → 1024차원 벡터</div>
+              </div>
+            </div>
+            <!-- Supabase region -->
+            <div class="region supabase" style="display:flex; flex-direction:column; gap:11px;">
+              <span class="rlabel">Supabase · 매니지드</span>
+              <div class="dbox" style="margin-top:4px; border-color:#047857;">
+                <div class="bt" style="color:#047857;"><i data-lucide="hard-drive" class="lucide-ico" style="font-size:18px;"></i>Storage</div>
+                <div class="bd">원본 사진 저장 · <span style="font-weight:700;">④</span> Signed URL</div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:center; gap:7px; color:var(--cal-muted); font-size:12.5px; font-weight:700;"><span class="num" style="width:22px;height:22px;font-size:12px;background:#047857;">5</span><i data-lucide="arrow-up-down" class="lucide-ico" style="font-size:16px;"></i>저장·검색</div>
+              <div class="dbox" style="border-color:#047857;">
+                <div class="bt" style="color:#047857;"><i data-lucide="database" class="lucide-ico" style="font-size:18px;"></i>Postgres + pgvector</div>
+                <div class="bd">메타데이터 + 벡터 인덱스</div>
+              </div>
+              <div style="background:#fff; border:1px dashed rgba(4,120,55,0.4); border-radius:10px; padding:10px 12px; font-size:12.5px; color:#047857; line-height:1.4;"><b>pgvector</b> = "비슷한 기록"을 숫자로 찾아주는 검색 색인</div>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT: flow + reasons -->
+        <div style="flex:1; display:flex; flex-direction:column; gap:16px; min-width:0;">
+          <div class="card" style="padding:18px 20px;">
+            <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:13px;">①~⑤ 쉬운 흐름</div>
+            <div class="flowrail">
+              <div class="fr"><span class="num blue" style="width:24px;height:24px;font-size:13px;">1</span><span class="tx">폰이 <b>원본을 Storage에 직접</b> 올림</span></div>
+              <div class="fr"><span class="num blue" style="width:24px;height:24px;font-size:13px;">2</span><span class="tx">백엔드엔 <b>경로만</b> 전달 (로그인 토큰 검증)</span></div>
+              <div class="fr"><span class="num blue" style="width:24px;height:24px;font-size:13px;">3</span><span class="tx">AI가 사진을 <b>읽고 분류·임베딩</b></span></div>
+              <div class="fr"><span class="num" style="width:24px;height:24px;font-size:13px;background:#047857;">4</span><span class="tx">검색 시 <b>잠깐 열리는 안전한</b> 이미지 링크</span></div>
+              <div class="fr"><span class="num" style="width:24px;height:24px;font-size:13px;background:#047857;">5</span><span class="tx">벡터로 <b>"비슷한 기록"</b> 검색</span></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <div style="font-size:14px; font-weight:700; color:var(--cal-muted);">왜 이 구성인가</div>
+            <div class="blist" style="gap:9px;">
+              <div class="bi" style="font-size:15px;"><i data-lucide="check" class="lucide-ico mk" style="font-size:17px;"></i><span><b>HCX-005</b> — 한국어 OCR·이해 우수 + 비전 멀티모달이라 <b>OCR 엔진 불필요</b> → 파이프라인 단순</span></div>
+              <div class="bi" style="font-size:15px;"><i data-lucide="check" class="lucide-ico mk" style="font-size:17px;"></i><span><b>Embedding v2</b> — LLM과 같은 제공자로 정렬, 1024차원을 pgvector에 그대로 저장</span></div>
+              <div class="bi" style="font-size:15px;"><i data-lucide="check" class="lucide-ico mk" style="font-size:17px;"></i><span><b>NCloud 서버</b> — systemd 상시 구동, 데이터는 매니지드로 <b>운영 부담↓</b></span></div>
+            </div>
+          </div>
+          <div class="card dark" style="padding:14px 18px; display:flex; align-items:center; gap:11px;">
+            <i data-lucide="shield-check" class="lucide-ico" style="font-size:19px; color:#86efac;"></i>
+            <span style="font-size:13.5px; color:var(--cal-on-dark); line-height:1.45;">단일 공인 IP 서버 1대 + Supabase. 비밀값은 <b>서버 환경변수</b>로 주입 (<span style="font-family:var(--font-mono);">.env</span> 평문 미배포)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="demo-pill"><span class="d"></span>구성·라벨은 샘플/데모 표기</span><span class="pnum">04</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S5 · 디자인 흐름 (화면) =================== -->
+  <section class="slide" data-screen-label="05 디자인 흐름">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>디자인 흐름 · 입력 → 처리 → 결과 → 재시도</div>
+          <h2 class="stitle sm">단계형 흐름 — 누구나 순서대로 따라 한다</h2>
+          <p class="smsg" style="font-size:20px;">S4 구조의 <b>①~⑤</b>가 실제 화면에서는 이렇게 보인다. <span style="color:var(--cal-muted-soft);">(같은 번호 체계)</span></p>
+        </div>
+        <div class="rubric"><span class="tag"><span>품질 및 실용성</span><span class="pts">15점</span></span><span class="sub">+ 구현 완성도 20점</span></div>
+      </div>
+      <div class="sbody" style="display:flex; justify-content:space-between; gap:14px; align-items:flex-start;">
+
+        <!-- ① 홈 -->
+        <div>
+          <div class="phone" style="--pw:232px;">
+            <div class="screen">
+              <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+              <div class="appbar"><span class="t">기록</span><i data-lucide="search" class="lucide-ico" style="font-size:17px; color:var(--cal-muted);"></i></div>
+              <div class="body">
+                <div class="tl-day">오늘</div>
+                <div class="tl-row"><div class="tl-thumb" style="background:#fb923c;"><i data-lucide="utensils" class="lucide-ico" style="font-size:18px;"></i></div><div class="tl-meta"><div class="ti">흑돼지 구이 · 영수증</div><div class="su">제주 · 2025-05-18</div></div><span class="tl-cat" style="background:rgba(251,146,60,0.16); color:#c2410c;">맛집</span></div>
+                <div class="tl-row"><div class="tl-thumb" style="background:#8b5cf6;"><i data-lucide="sparkles" class="lucide-ico" style="font-size:18px;"></i></div><div class="tl-meta"><div class="ti">선크림 성분표</div><div class="su">스크린샷</div></div><span class="tl-cat" style="background:rgba(139,92,246,0.16); color:#6d28d9;">화장품</span></div>
+                <div class="tl-day">어제</div>
+                <div class="tl-row"><div class="tl-thumb" style="background:#34d399;"><i data-lucide="plane" class="lucide-ico" style="font-size:18px;"></i></div><div class="tl-meta"><div class="ti">항공권 e-티켓</div><div class="su">제주행</div></div><span class="tl-cat" style="background:rgba(52,211,153,0.18); color:#047857;">여행지</span></div>
+                <div class="tl-row"><div class="tl-thumb" style="background:#9ca3af;"><i data-lucide="image" class="lucide-ico" style="font-size:18px;"></i></div><div class="tl-meta"><div class="ti">메모 캡처</div><div class="su">스크린샷</div></div><span class="tl-cat" style="background:var(--cal-surface-strong); color:var(--cal-muted);">기타</span></div>
+              </div>
+              <div class="fab"><i data-lucide="plus" class="lucide-ico" style="font-size:17px;"></i>사진 올리기</div>
+            </div>
+          </div>
+          <div class="pcap"><div class="h"><span class="num ghost" style="width:24px;height:24px;font-size:13px;">1</span>홈 · 타임라인</div><div class="d">날짜별로 정리된 내 기록</div></div>
+        </div>
+
+        <!-- ② 업로드 -->
+        <div>
+          <div class="phone" style="--pw:232px;">
+            <div class="screen">
+              <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+              <div class="appbar"><span class="t">사진 선택</span><span style="font-size:12px; font-weight:700; color:#1d4ed8;">3장</span></div>
+              <div class="body">
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px; outline:2.5px solid var(--cal-ink); outline-offset:-2.5px;"><i data-lucide="check" class="lucide-ico" style="font-size:16px; color:#fff; background:var(--cal-ink); border-radius:9999px; padding:2px; position:absolute; top:4px; right:4px;"></i><i data-lucide="utensils" class="lucide-ico ic" style="font-size:16px;"></i><span class="smp">샘플</span></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px; outline:2.5px solid var(--cal-ink); outline-offset:-2.5px;"><i data-lucide="check" class="lucide-ico" style="font-size:16px; color:#fff; background:var(--cal-ink); border-radius:9999px; padding:2px; position:absolute; top:4px; right:4px;"></i><i data-lucide="receipt" class="lucide-ico ic" style="font-size:16px;"></i><span class="smp">샘플</span></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px; outline:2.5px solid var(--cal-ink); outline-offset:-2.5px;"><i data-lucide="check" class="lucide-ico" style="font-size:16px; color:#fff; background:var(--cal-ink); border-radius:9999px; padding:2px; position:absolute; top:4px; right:4px;"></i><i data-lucide="plane" class="lucide-ico ic" style="font-size:16px;"></i><span class="smp">샘플</span></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="sparkles" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="map-pin" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="image" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="ticket" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="qr-code" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                  <div class="imgph" style="aspect-ratio:1; border-radius:8px;"><i data-lucide="image" class="lucide-ico ic" style="font-size:16px;"></i></div>
+                </div>
+              </div>
+              <div class="fab"><i data-lucide="upload" class="lucide-ico" style="font-size:16px;"></i>3장 업로드</div>
+            </div>
+          </div>
+          <div class="pcap"><div class="h"><span class="num ghost" style="width:24px;height:24px;font-size:13px;">2</span>업로드</div><div class="d">갤러리에서 다중 선택</div></div>
+        </div>
+
+        <!-- ③ 처리 상태 -->
+        <div>
+          <div class="phone" style="--pw:232px;">
+            <div class="screen">
+              <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+              <div class="appbar"><span class="t">처리 중</span><i data-lucide="loader" class="lucide-ico" style="font-size:16px; color:var(--cal-muted);"></i></div>
+              <div class="body" style="display:flex; flex-direction:column; gap:9px; padding-top:6px;">
+                <div style="display:flex; align-items:center; gap:9px; background:rgba(16,185,129,0.10); border-radius:11px; padding:11px;"><i data-lucide="check-circle-2" class="lucide-ico" style="font-size:18px; color:#047857;"></i><div style="flex:1;"><div style="font-size:12.5px; font-weight:700; color:var(--cal-ink);">흑돼지 구이</div><div style="font-size:10.5px; color:#047857; font-weight:600;">ready · 분류 완료</div></div></div>
+                <div style="display:flex; align-items:center; gap:9px; background:rgba(59,130,246,0.10); border-radius:11px; padding:11px;"><i data-lucide="loader-circle" class="lucide-ico" style="font-size:18px; color:#1d4ed8;"></i><div style="flex:1;"><div style="font-size:12.5px; font-weight:700; color:var(--cal-ink);">영수증</div><div style="font-size:10.5px; color:#1d4ed8; font-weight:600;">processing · OCR 중</div></div></div>
+                <div style="display:flex; align-items:center; gap:9px; background:var(--cal-surface-soft); border-radius:11px; padding:11px;"><i data-lucide="clock" class="lucide-ico" style="font-size:18px; color:var(--cal-muted);"></i><div style="flex:1;"><div style="font-size:12.5px; font-weight:700; color:var(--cal-ink);">항공권</div><div style="font-size:10.5px; color:var(--cal-muted); font-weight:600;">pending · 대기</div></div></div>
+                <div style="margin-top:6px; height:6px; border-radius:9999px; background:var(--cal-surface-strong); overflow:hidden;"><div style="width:66%; height:100%; background:var(--cal-ink);"></div></div>
+                <div style="font-size:10.5px; color:var(--cal-muted); text-align:center;">3건 중 2건 완료</div>
+              </div>
+            </div>
+          </div>
+          <div class="pcap"><div class="h"><span class="num ghost" style="width:24px;height:24px;font-size:13px;">3</span>처리 상태</div><div class="d">pending → processing → ready</div></div>
+        </div>
+
+        <!-- ④ 검색 결과 -->
+        <div>
+          <div class="phone" style="--pw:232px;">
+            <div class="screen">
+              <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+              <div class="appbar"><span class="t">검색</span><i data-lucide="sliders-horizontal" class="lucide-ico" style="font-size:16px; color:var(--cal-muted);"></i></div>
+              <div class="body" style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; gap:7px; align-items:center; background:var(--cal-surface-soft); border-radius:11px; padding:9px 11px;"><i data-lucide="search" class="lucide-ico" style="font-size:13px; color:var(--cal-muted);"></i><span style="font-size:10.5px; color:var(--cal-ink); font-weight:600;">제주 흑돼지 식당</span></div>
+                <div style="background:#fff; border:1px solid var(--cal-hairline); border-radius:11px; padding:11px;"><div style="display:flex; align-items:center; gap:6px; font-size:10px; font-weight:700; color:#1d4ed8; margin-bottom:5px;"><i data-lucide="sparkles" class="lucide-ico" style="font-size:11px;"></i>AI 답변</div><div style="font-size:11px; line-height:1.45; color:var(--cal-body);">제주시 〈샘플 식당명〉, <b style="color:var(--cal-ink);">5월 18일</b> 기록이에요.</div></div>
+                <div style="font-size:10px; font-weight:700; color:var(--cal-muted-soft);">근거 기록</div>
+                <div class="tl-row" style="margin:0;"><div class="tl-thumb" style="background:#fb923c; width:38px; height:38px;"><i data-lucide="utensils" class="lucide-ico" style="font-size:15px;"></i></div><div class="tl-meta"><div class="ti" style="font-size:11px;">흑돼지 영수증</div><div class="su" style="font-size:9.5px;">제주 · 05-18</div></div><span class="badge blue" style="font-size:8.5px; padding:2px 6px;">0.82</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="pcap"><div class="h"><span class="num ghost" style="width:24px;height:24px;font-size:13px;">4</span>검색 결과</div><div class="d">답변 + 근거 사진</div></div>
+        </div>
+
+        <!-- ⑤ 상세 -->
+        <div>
+          <div class="phone" style="--pw:232px;">
+            <div class="screen">
+              <div class="statusbar"><span>9:41</span><span class="dots"><i data-lucide="wifi" class="lucide-ico" style="font-size:11px;"></i><i data-lucide="battery-full" class="lucide-ico" style="font-size:12px;"></i></span></div>
+              <div class="appbar"><i data-lucide="chevron-left" class="lucide-ico" style="font-size:18px; color:var(--cal-muted);"></i><span class="t" style="font-size:15px;">상세</span><i data-lucide="more-horizontal" class="lucide-ico" style="font-size:16px; color:var(--cal-muted);"></i></div>
+              <div class="body" style="display:flex; flex-direction:column; gap:9px;">
+                <div class="imgph" style="aspect-ratio:4/3; border-radius:12px;"><i data-lucide="utensils" class="lucide-ico ic" style="font-size:30px;"></i><span class="smp">샘플 이미지</span></div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;"><span class="tl-cat" style="background:rgba(251,146,60,0.16); color:#c2410c;">맛집</span><span class="badge" style="font-size:9.5px; padding:3px 8px;">#제주</span><span class="badge" style="font-size:9.5px; padding:3px 8px;">#흑돼지</span><span class="badge" style="font-size:9.5px; padding:3px 8px;">#영수증</span></div>
+                <div style="font-size:10.5px; line-height:1.5; color:var(--cal-body); background:var(--cal-surface-soft); border-radius:10px; padding:10px;"><b style="color:var(--cal-ink);">설명:</b> 제주 흑돼지 전문점 영수증. 메뉴·금액·날짜 포함.</div>
+                <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--cal-muted);"><span>장소 · 제주시</span><span>2025-05-18</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="pcap"><div class="h"><span class="num ghost" style="width:24px;height:24px;font-size:13px;">5</span>항목 상세</div><div class="d">분류·태그·설명·원본</div></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span style="font-size:14px; color:var(--cal-muted);">빈/실패 상태 — <b style="color:var(--cal-body);">HomeEmpty · ProcessingFailed · SearchEmpty</b> 처리 포함</span><span class="demo-pill"><span class="d"></span>샘플/데모 화면</span><span class="pnum">05</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S6 · AI 입출력 & 실패 (★30) =================== -->
+  <section class="slide" data-screen-label="06 AI 입출력·실패">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot" style="background:#2563eb;"></span>AI 입출력 실제 예시 & 실패 처리 · 핵심 장표</div>
+          <h2 class="stitle sm">입력·출력이 구체적이고, 실패해도 갇히지 않는다</h2>
+          <p class="smsg" style="font-size:20px;">4단계 파이프라인 — 사진 한 장이 <b>검색 가능한 기록</b>이 되기까지.</p>
+        </div>
+        <div class="rubric"><span class="tag hi"><i data-lucide="star" class="lucide-ico" style="font-size:16px;"></i><span>AI·클라우드 활용</span><span class="pts">30점</span></span><span class="sub">최대 배점 · S6 핵심</span></div>
+      </div>
+      <div class="sbody" style="display:flex; flex-direction:column; gap:18px;">
+        <!-- pipeline -->
+        <div class="pipe">
+          <div class="pstep" style="flex:0.8;">
+            <div class="ph"><span class="num" style="width:24px;height:24px;font-size:13px;">0</span>입력 이미지</div>
+            <div class="imgph" style="height:118px; border-radius:11px;"><i data-lucide="utensils" class="lucide-ico ic" style="font-size:28px;"></i><span class="smp">샘플 이미지</span></div>
+            <span class="model" style="background:var(--cal-surface-strong); color:var(--cal-muted);">데모 1장</span>
+          </div>
+          <div class="parrow"><i data-lucide="arrow-right" class="lucide-ico" style="font-size:24px;"></i></div>
+          <div class="pstep" style="flex:1;">
+            <div class="ph"><span class="num" style="width:24px;height:24px;font-size:13px;">1</span>describe_image</div>
+            <span class="model">HCX-005 · 비전</span>
+            <div class="mono" style="height:118px; font-size:13px; padding:14px;"><div class="c">// OCR + 한국어 설명</div><div><span class="k">OCR</span>: "흑돼지 2인 …"</div><div><span class="k">설명</span>: <span class="s">"제주 흑돼지</span></div><div><span class="s">  식당 영수증"</span></div></div>
+          </div>
+          <div class="parrow"><i data-lucide="arrow-right" class="lucide-ico" style="font-size:24px;"></i></div>
+          <div class="pstep" style="flex:1;">
+            <div class="ph"><span class="num" style="width:24px;height:24px;font-size:13px;">2</span>classify</div>
+            <span class="model">HCX-005</span>
+            <div class="mono" style="height:118px; font-size:12.5px; padding:14px;"><div>{</div><div>&nbsp;<span class="k">category</span>:<span class="s">"맛집"</span>,</div><div>&nbsp;<span class="k">tags</span>:[…≤5],</div><div>&nbsp;<span class="k">place</span>:<span class="s">"제주"</span>,</div><div>&nbsp;<span class="k">summary</span>:<span class="s">"…"</span> }</div></div>
+          </div>
+          <div class="parrow"><i data-lucide="arrow-right" class="lucide-ico" style="font-size:24px;"></i></div>
+          <div class="pstep" style="flex:0.95;">
+            <div class="ph"><span class="num" style="width:24px;height:24px;font-size:13px;">3</span>embedding</div>
+            <span class="model">Embedding v2</span>
+            <div class="mono" style="height:118px; font-size:12.5px; padding:14px; display:flex; flex-direction:column; justify-content:center;"><div class="c">// 텍스트 → 벡터</div><div><span class="n">1024</span>차원</div><div class="c">// pgvector 저장</div></div>
+          </div>
+          <div class="parrow"><i data-lucide="arrow-right" class="lucide-ico" style="font-size:24px;"></i></div>
+          <div class="pstep" style="flex:1.05;">
+            <div class="ph"><span class="num blue" style="width:24px;height:24px;font-size:13px;">4</span>RAG 답변</div>
+            <span class="model">HCX-005 · RAG</span>
+            <div class="mono" style="height:118px; font-size:12.5px; padding:14px;"><div>{</div><div>&nbsp;<span class="k">answered</span>:<span class="n">true</span>,</div><div>&nbsp;<span class="k">text</span>:<span class="s">"…식당"</span>,</div><div>&nbsp;<span class="k">evidence</span>:[썸네일,</div><div>&nbsp;&nbsp;날짜, 점수] }</div></div>
+          </div>
+        </div>
+        <!-- failure row -->
+        <div style="display:flex; gap:18px;">
+          <div class="card" style="flex:1.55; padding:18px 20px;">
+            <div style="display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; color:var(--cal-ink); margin-bottom:13px;"><i data-lucide="shield-alert" class="lucide-ico" style="font-size:18px; color:var(--cal-warning);"></i>AI 실패 처리 4종 — <span style="color:var(--cal-muted); font-weight:600;">막혀도 갇히지 않는다</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:11px;">
+              <div style="display:flex; gap:10px; align-items:flex-start; background:#fff; border:1px solid var(--cal-hairline); border-radius:10px; padding:12px 13px;"><span class="num" style="width:22px;height:22px;font-size:12px;">1</span><span style="font-size:14px; line-height:1.4; color:var(--cal-body);">LLM <b style="color:var(--cal-ink);">JSON 파싱 실패</b> → 안전 폴백 (<span style="font-family:var(--font-mono); font-size:12.5px;">기타</span> / <span style="font-family:var(--font-mono); font-size:12.5px;">answered:false</span>)</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start; background:#fff; border:1px solid var(--cal-hairline); border-radius:10px; padding:12px 13px;"><span class="num" style="width:22px;height:22px;font-size:12px;">2</span><span style="font-size:14px; line-height:1.4; color:var(--cal-body);"><b style="color:var(--cal-ink);">타임아웃 60s</b> — 무한 대기 방지</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start; background:#fff; border:1px solid var(--cal-hairline); border-radius:10px; padding:12px 13px;"><span class="num" style="width:22px;height:22px;font-size:12px;">3</span><span style="font-size:14px; line-height:1.4; color:var(--cal-body);">OCR 텍스트 없으면 <b style="color:var(--cal-ink);">임베딩 skip</b></span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start; background:#fff; border:1px solid var(--cal-hairline); border-radius:10px; padding:12px 13px;"><span class="num" style="width:22px;height:22px;font-size:12px;">4</span><span style="font-size:14px; line-height:1.4; color:var(--cal-body);">파이프라인 예외 → <span style="font-family:var(--font-mono); font-size:12.5px; color:#b91c1c;">status=failed</span> + <b style="color:var(--cal-ink);">재시도 가능</b></span></div>
+            </div>
+          </div>
+          <div class="card dark" style="flex:1; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; color:#fff;"><i data-lucide="shield-check" class="lucide-ico" style="font-size:18px; color:#86efac;"></i>환각 방지</div>
+            <div style="font-size:14px; line-height:1.5; color:var(--cal-on-dark);">유사도 <b style="color:#fff; font-family:var(--font-mono);">0.30</b> 미만은 컷. <b style="color:#fff;">등록된 기록만 근거</b>로 쓰고, 출처가 없으면 <b style="color:#fff;">답하지 않는다.</b></div>
+            <div class="demo-pill" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.18); color:var(--cal-on-dark-soft); align-self:flex-start;"><span class="d"></span>예시는 전부 합성/데모 데이터</div>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="pnum">06</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S7 · 구현 자료 =================== -->
+  <section class="slide" data-screen-label="07 구현 자료">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>구현 자료 · 폴더 구조 · 실행 · 연결</div>
+          <h2 class="stitle sm">말이 아니라, 돌아가는 코드</h2>
+          <p class="smsg" style="font-size:20px;">레이어 구조 + 실서버에서 업로드 1건이 <b>ready까지 간 실제 응답</b> (실연동 증거).</p>
+        </div>
+        <div class="rubric"><span class="tag"><span>구현 완성도</span><span class="pts">20점</span></span><span class="sub">S3 · S5 · S7 충족</span></div>
+      </div>
+      <div class="sbody" style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:18px;">
+        <!-- layers + tree -->
+        <div class="card" style="padding:20px 22px;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:12px; display:flex; align-items:center; gap:8px;"><i data-lucide="layers" class="lucide-ico" style="font-size:16px;"></i>레이어 구조</div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:14px; font-weight:600; color:var(--cal-body); margin-bottom:14px;">
+            <span class="chip" style="padding:6px 12px; font-size:14px;">Routers</span><i data-lucide="arrow-right" class="lucide-ico" style="font-size:15px; color:var(--cal-muted-soft);"></i>
+            <span class="chip" style="padding:6px 12px; font-size:14px;">Services</span><i data-lucide="arrow-right" class="lucide-ico" style="font-size:15px; color:var(--cal-muted-soft);"></i>
+            <span class="chip" style="padding:6px 12px; font-size:14px;">Integrations</span><i data-lucide="arrow-right" class="lucide-ico" style="font-size:15px; color:var(--cal-muted-soft);"></i>
+            <span class="chip" style="padding:6px 12px; font-size:14px;">Models / DB</span>
+          </div>
+          <div class="mono light" style="font-size:13px; padding:14px 16px; line-height:1.55;"><div><span class="c">app/</span></div><div>├─ routers/ <span class="c">  # ingest · items · search · auth</span></div><div>├─ services/ <span class="c"> # 파이프라인 오케스트레이션</span></div><div>├─ integrations/ <span class="c"># clova · supabase (모킹 대상)</span></div><div>└─ models/ <span class="c">   # ORM · 스키마</span></div></div>
+        </div>
+        <!-- API table -->
+        <div class="card white" style="padding:20px 22px;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:8px; display:flex; align-items:center; gap:8px;"><i data-lucide="route" class="lucide-ico" style="font-size:16px;"></i>주요 API</div>
+          <table class="tbl" style="font-size:15px;">
+            <thead><tr><th>엔드포인트</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td><span class="mc">POST /ingest</span></td><td>업로드 접수 · 즉시 <span class="mc">202</span> · 큐잉</td></tr>
+              <tr><td><span class="mc">GET /items</span></td><td>타임라인 · 상태 조회</td></tr>
+              <tr><td><span class="mc">GET /search</span></td><td>자연어 검색 · RAG 답변</td></tr>
+              <tr><td><span class="mc">POST /items/:id/retry</span></td><td>실패 항목 재시도</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- run -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-muted); display:flex; align-items:center; gap:8px;"><i data-lucide="terminal" class="lucide-ico" style="font-size:16px;"></i>실행 화면</div>
+          <div class="mono" style="font-size:13px; flex:1; line-height:1.6;"><div><span class="c">$</span> uvicorn app.main:app --host 0.0.0.0</div><div class="s">INFO: Uvicorn running on :8000</div><div class="s">INFO: Application startup complete.</div><div style="margin-top:6px;"><span class="c"># Swagger 문서</span></div><div><span class="k">GET</span> /docs <span class="s">200 OK</span> <span class="c">→ 인증·스키마 확인</span></div></div>
+        </div>
+        <!-- ready response -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-muted); display:flex; align-items:center; gap:8px;"><i data-lucide="check-circle-2" class="lucide-ico" style="font-size:16px; color:var(--cal-success);"></i><span class="mc" style="font-family:var(--font-mono); color:var(--cal-ink);">GET /items</span> — 업로드 1건이 <span style="color:#047857;">ready</span>까지</div>
+          <div class="mono light" style="font-size:13px; flex:1; line-height:1.55;"><div>{ <span class="k">"id"</span>: <span class="s">"itm_demo_018"</span>, <span class="c">// 샘플</span></div><div>&nbsp;&nbsp;<span class="k">"status"</span>: <span class="s">"ready"</span>,</div><div>&nbsp;&nbsp;<span class="k">"category"</span>: <span class="s">"맛집"</span>,</div><div>&nbsp;&nbsp;<span class="k">"place"</span>: <span class="s">"제주"</span>, <span class="k">"captured_at"</span>: <span class="s">"2025-05-18"</span>,</div><div>&nbsp;&nbsp;<span class="k">"image_url"</span>: <span class="s">"&lt;SIGNED_URL&gt;"</span> <span class="c">// 마스킹</span> }</div></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="demo-pill"><span class="d"></span>실 IP·키·토큰 마스킹 · 샘플 데이터</span><span class="pnum">07</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S8 · 테스트 & 오류 해결 =================== -->
+  <section class="slide" data-screen-label="08 테스트·오류 해결">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>테스트 & 오류 해결 · 검증</div>
+          <h2 class="stitle sm">발견하고, 수정하고, 검증했다</h2>
+          <p class="smsg" style="font-size:20px;">동작을 검증하고, 실배포 버그를 <b>근본 원인까지 추적·수정</b>했다.</p>
+        </div>
+        <div class="rubric"><span class="tag"><span>문제 해결 노력</span><span class="pts">15점</span></span><span class="sub">S8 충족</span></div>
+      </div>
+      <div class="sbody" style="display:flex; flex-direction:column; gap:18px;">
+        <!-- metrics -->
+        <div style="display:flex; gap:18px; align-items:stretch;">
+          <div class="card white" style="display:flex; align-items:center; gap:16px; padding:18px 24px;"><i data-lucide="check-circle-2" class="lucide-ico" style="font-size:34px; color:var(--cal-success);"></i><div><div style="font-family:var(--font-display); font-weight:600; font-size:34px; letter-spacing:-1px; color:var(--cal-ink); line-height:1;">15 passed</div><div style="font-size:14px; color:var(--cal-muted); margin-top:4px;">pytest</div></div></div>
+          <div class="card white" style="display:flex; align-items:center; gap:14px; padding:18px 24px;"><i data-lucide="sparkles" class="lucide-ico" style="font-size:26px; color:var(--cal-ink);"></i><div><div style="font-size:20px; font-weight:700; color:var(--cal-ink);">ruff clean</div><div style="font-size:14px; color:var(--cal-muted); margin-top:2px;">린트 통과</div></div></div>
+          <div class="card" style="flex:1; display:flex; align-items:center; gap:12px; padding:18px 24px;"><i data-lucide="plug" class="lucide-ico" style="font-size:22px; color:var(--cal-muted);"></i><span style="font-size:16px; color:var(--cal-body);">외부 API는 <span class="mc" style="font-family:var(--font-mono); color:var(--cal-ink);">integrations/</span> <b style="color:var(--cal-ink);">모킹</b> — 실호출·실과금 없음</span></div>
+        </div>
+        <div style="display:flex; gap:18px; align-items:stretch;">
+          <!-- test breakdown -->
+          <div class="card" style="flex:0.9; padding:18px 22px;">
+            <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:6px;">테스트 분해</div>
+            <table class="tbl" style="font-size:15px;">
+              <thead><tr><th>파일</th><th>검증</th><th style="text-align:right;">개수</th></tr></thead>
+              <tbody>
+                <tr><td><span class="mc">test_auth</span></td><td>JWT 회귀</td><td style="text-align:right; font-weight:700;">7</td></tr>
+                <tr><td><span class="mc">test_ingest</span></td><td>202 · 큐잉 · <span class="badge err" style="font-size:12px;">타인경로 403</span> <span class="badge err" style="font-size:12px;">traversal 403</span> · retry</td><td style="text-align:right; font-weight:700;">6</td></tr>
+                <tr><td><span class="mc">test_search</span></td><td>RAG 응답·컷오프</td><td style="text-align:right; font-weight:700;">2</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:10px; font-size:13px; color:var(--cal-muted-soft);">보안 테스트(403 2종)로 권한·경로 우회를 회귀 방지.</div>
+          </div>
+          <!-- fixes -->
+          <div style="flex:1.25; display:flex; gap:14px;">
+            <div class="fixcard" style="flex:1;">
+              <div class="fhd"><i data-lucide="bug" class="lucide-ico" style="font-size:17px; color:var(--cal-error);"></i><span class="ttl">처리 영구정지 버그</span><span class="hash">7d606dd</span></div>
+              <div class="fixstep"><div class="lab">증상</div><div class="val"><span class="mc" style="font-family:var(--font-mono);">processing</span>에서 멈춰 영원히 안 끝남</div></div>
+              <div class="fixstep"><div class="lab">원인</div><div class="val"><span class="mc" style="font-family:var(--font-mono);">captured_at</span> naive/aware 시간 비교 충돌</div></div>
+              <div class="fixstep"><div class="lab">수정</div><div class="val">시간대 정규화 + 예외 시 <b>rollback</b></div></div>
+              <div class="fixstep"><div class="lab">반영</div><div class="val"><span class="mc" style="font-family:var(--font-mono); color:#b91c1c;">failed</span>로 떨어뜨려 <b>재시도 가능</b></div></div>
+            </div>
+            <div class="fixcard" style="flex:1;">
+              <div class="fhd"><i data-lucide="shield" class="lucide-ico" style="font-size:17px; color:#1d4ed8;"></i><span class="ttl">IDOR 자가 발견·차단</span><span class="hash">7c09115</span></div>
+              <div class="fixstep"><div class="lab">증상</div><div class="val">배포 전 보안점검에서 타인 경로 접근 가능성</div></div>
+              <div class="fixstep"><div class="lab">원인</div><div class="val">경로 소유자 검증 누락 (IDOR)</div></div>
+              <div class="fixstep"><div class="lab">수정</div><div class="val"><b>본인 경로 강제</b> + PII 로그 제거</div></div>
+              <div class="fixstep"><div class="lab">반영</div><div class="val">403 테스트 2종으로 <b>회귀 고정</b></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span style="font-size:14px; color:var(--cal-muted);">정직성 — <b style="color:var(--cal-body);">mypy</b>는 모듈명 충돌로 미실행(LOW, 후속) · <b style="color:var(--cal-body);">RLS</b> 후속 적용</span><span class="pnum">08</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S9 · 한계와 개선 =================== -->
+  <section class="slide" data-screen-label="09 한계·개선">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>한계와 개선 방향 · 정직하게</div>
+          <h2 class="stitle">지금 못한 것, 다음에 할 것</h2>
+          <p class="smsg">과장 없이 — 현재의 경계와 다음 단계를 분명히.</p>
+        </div>
+        <div class="rubric"><span class="tag"><span>문서화 완성도</span><span class="pts">10점</span></span><span class="sub">S9 · S10 충족</span></div>
+      </div>
+      <div class="sbody" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-content:center; align-items:stretch;">
+        <div class="card" style="padding:30px 32px;">
+          <div style="display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700; color:var(--cal-ink); margin-bottom:20px;"><i data-lucide="circle-slash" class="lucide-ico" style="font-size:22px; color:var(--cal-muted);"></i>현재 한계</div>
+          <div class="blist">
+            <div class="bi"><i data-lucide="image" class="lucide-ico mk" style="font-size:20px; color:var(--cal-muted);"></i><span>입력은 <b>이미지 단일 모달리티</b> — 음성·PDF 미지원</span></div>
+            <div class="bi"><i data-lucide="folder-x" class="lucide-ico mk" style="font-size:20px; color:var(--cal-muted);"></i><span><b>자동 갤러리 수집</b>은 브라우저 제약으로 불가</span></div>
+            <div class="bi"><i data-lucide="lock" class="lucide-ico mk" style="font-size:20px; color:var(--cal-muted);"></i><span><b>RLS / Storage 정책 미적용</b> — 애플리케이션 레벨 권한 검증으로 대체 (후속 과제)</span></div>
+          </div>
+        </div>
+        <div class="card white" style="padding:30px 32px;">
+          <div style="display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700; color:var(--cal-ink); margin-bottom:20px;"><i data-lucide="trending-up" class="lucide-ico" style="font-size:22px; color:var(--cal-success);"></i>개선 방향</div>
+          <div class="blist">
+            <div class="bi"><span class="num" style="width:26px;height:26px;font-size:14px;">1</span><span><b>RLS 적용</b> — 데이터베이스 레벨 행 단위 보안 강화</span></div>
+            <div class="bi"><span class="num" style="width:26px;height:26px;font-size:14px;">2</span><span><b>모달리티 확장</b> — 파이프라인 2단계에 처리기 추가 (음성·PDF)</span></div>
+            <div class="bi"><span class="num" style="width:26px;height:26px;font-size:14px;">3</span><span><b>검색 필터 고도화</b> — 기간·카테고리·장소 복합 필터</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="pnum">09</span></div>
+    </div>
+  </section>
+
+  <!-- =================== S10 · 마무리 =================== -->
+  <section class="slide" data-screen-label="10 마무리">
+    <div class="slide-inner">
+      <div class="shead">
+        <div class="shead-l">
+          <div class="kicker"><span class="dot"></span>마무리 · 만든 것 + 제출 산출물</div>
+          <h2 class="stitle">만든 것과 제출 산출물</h2>
+          <p class="smsg">실서버 배포 완료 · <b>15 passed</b> · 보안 점검 반영.</p>
+        </div>
+        <div class="rubric"><span class="tag"><span>문서화 완성도</span><span class="pts">10점</span></span><span class="sub">S9 · S10 충족</span></div>
+      </div>
+      <div class="sbody" style="display:flex; gap:24px; align-items:center;">
+        <!-- left: status + deliverables -->
+        <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+          <div class="card white" style="padding:22px 24px;">
+            <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:14px;">현재 상태</div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="chip" style="padding:8px 14px;"><i data-lucide="rocket" class="lucide-ico" style="font-size:17px; color:var(--cal-success);"></i>실서버 배포 완료</span>
+              <span class="chip" style="padding:8px 14px;"><i data-lucide="check-circle-2" class="lucide-ico" style="font-size:17px; color:var(--cal-success);"></i>테스트 15 passed</span>
+              <span class="chip" style="padding:8px 14px;"><i data-lucide="shield-check" class="lucide-ico" style="font-size:17px; color:#1d4ed8;"></i>보안 점검 반영</span>
+            </div>
+          </div>
+          <div class="card" style="padding:22px 24px;">
+            <div style="font-size:14px; font-weight:700; color:var(--cal-muted); margin-bottom:14px;">제출 산출물</div>
+            <div class="blist" style="gap:12px;">
+              <div class="bi" style="font-size:17px;"><i data-lucide="folder-git-2" class="lucide-ico mk" style="font-size:19px;"></i><span>코드 저장소</span></div>
+              <div class="bi" style="font-size:17px;"><i data-lucide="file-text" class="lucide-ico mk" style="font-size:19px;"></i><span><span class="mc" style="font-family:var(--font-mono);">README.md</span> — 목적·기능·시스템 구성·사용 방법</span></div>
+              <div class="bi" style="font-size:17px;"><i data-lucide="book-open" class="lucide-ico mk" style="font-size:19px;"></i><span><span class="mc" style="font-family:var(--font-mono);">SERVER_RUNBOOK.md</span> — 배포·운영 절차</span></div>
+              <div class="bi" style="font-size:17px;"><i data-lucide="presentation" class="lucide-ico mk" style="font-size:19px;"></i><span>발표 자료 (본 문서)</span></div>
+            </div>
+            <div style="margin-top:18px; display:flex; align-items:center; gap:10px; background:var(--cal-surface-soft); border-radius:10px; padding:12px 15px;"><i data-lucide="arrow-right" class="lucide-ico" style="font-size:17px; color:var(--cal-ink);"></i><span style="font-size:15px; color:var(--cal-body);"><b style="color:var(--cal-ink);">다음 단계</b> — RLS 적용 후 모달리티 확장.</span></div>
+          </div>
+        </div>
+        <!-- right: rubric map -->
+        <div class="card dark" style="flex:1.05; padding:24px 26px;">
+          <div style="font-size:14px; font-weight:700; color:var(--cal-on-dark-soft); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><i data-lucide="clipboard-check" class="lucide-ico" style="font-size:16px;"></i>평가표 6항목 ↔ 장표 매핑 <span style="margin-left:auto; font-size:13px;">총 100점</span></div>
+          <table class="tbl rubmap" style="font-size:15px;">
+            <tbody>
+              <tr><td style="color:#fff; font-weight:600;">기획 및 목표 적합성</td><td style="text-align:right; color:#a1a1aa;">10</td><td style="color:#a1a1aa; text-align:right; width:120px;">S1 · S2</td></tr>
+              <tr><td style="color:#fff; font-weight:700;">AI·클라우드 활용 <span class="badge blue" style="font-size:11px; background:rgba(59,130,246,0.25); color:#bfdbfe;">최대</span></td><td style="text-align:right; color:#93c5fd; font-weight:700;">30</td><td style="color:#93c5fd; text-align:right; font-weight:600;">S4 · S6 · S5</td></tr>
+              <tr><td style="color:#fff; font-weight:600;">구현 완성도</td><td style="text-align:right; color:#a1a1aa;">20</td><td style="color:#a1a1aa; text-align:right;">S5 · S6 · S7</td></tr>
+              <tr><td style="color:#fff; font-weight:600;">품질 및 실용성</td><td style="text-align:right; color:#a1a1aa;">15</td><td style="color:#a1a1aa; text-align:right;">S5 · S6</td></tr>
+              <tr><td style="color:#fff; font-weight:600;">문제 해결 노력</td><td style="text-align:right; color:#a1a1aa;">15</td><td style="color:#a1a1aa; text-align:right;">S8</td></tr>
+              <tr><td style="color:#fff; font-weight:600;">문서화 완성도</td><td style="text-align:right; color:#a1a1aa;">10</td><td style="color:#a1a1aa; text-align:right;">S9 · S10</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sfoot"><span class="brand"><span class="ll-mark" style="width:18px;height:18px;border-radius:5px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="5" width="16" height="11" rx="2"></rect></svg></span>life_log</span><span class="demo-pill"><span class="d"></span>모든 데이터 샘플/데모 · 실 키·서버·개인정보 미포함</span><span class="pnum">10</span></div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#111111"></rect>
+    <g transform="translate(30 30)" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="0" y="0" width="30" height="23" rx="3"></rect>
+      <circle cx="9" cy="9" r="2.6"></circle>
+      <path d="m30 17-7.5-7.5L8 24"></path>
+      <circle cx="29" cy="31" r="6"></circle>
+      <path d="m36 38-3-3"></path>
+    </g>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  if (window.lucide) lucide.createIcons();
+</script>
+<script src="deck-stage.js"></script>
+<script>
+  // re-run after deck defines, so cloned thumbnails also get icons
+  window.addEventListener('load', () => { if (window.lucide) lucide.createIcons(); });
+</script>
+</body>
+</html>

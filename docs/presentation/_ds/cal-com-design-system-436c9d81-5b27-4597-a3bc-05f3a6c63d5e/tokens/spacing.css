@@ -1,0 +1,49 @@
+/* ===================================================================
+   Cal.com — Spacing, radius, shadow & layout tokens
+   Base unit 4px. Section rhythm 96px. Hierarchical radii.
+   Soft, modern elevation — no heavy shadows.
+   =================================================================== */
+
+:root {
+  /* --- Spacing scale (base 4px) --- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 96px;
+
+  /* --- Radius scale --- */
+  --radius-xs: 4px;    /* badge accents */
+  --radius-sm: 6px;    /* small inline buttons, menu items */
+  --radius-md: 8px;    /* buttons, inputs, tabs */
+  --radius-lg: 12px;   /* content cards */
+  --radius-xl: 16px;   /* hero app-mockup card */
+  --radius-pill: 9999px; /* nav-pill-group, badges */
+  --radius-full: 9999px; /* avatars, icon buttons */
+
+  /* --- Elevation (soft, low alpha) --- */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-pill-active: 0 1px 2px rgba(0, 0, 0, 0.08); /* active pill inside nav group */
+
+  /* --- Layout --- */
+  --content-max: 1200px;
+  --nav-height: 64px;
+
+  /* --- Control sizing --- */
+  --control-height: 40px;
+  --control-pad-x: 20px;
+  --input-pad: 10px 14px;
+  --avatar-size: 36px;
+  --icon-btn-size: 36px;
+
+  /* --- Motion --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --dur-fast: 120ms;  /* @kind other */
+  --dur-base: 180ms;  /* @kind other */
+}
